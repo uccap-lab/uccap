@@ -1,0 +1,18 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+dist/
+build/
+.venv/
+# never commit training data or the trained UC-Cap parameters
+data/private/
+*.parquet
+src/uccap/hybrid/uccap_v4_2.json
+
+# LaTeX build files
+docs/manual_tex/*.aux
+docs/manual_tex/*.log
+docs/manual_tex/*.out
+docs/manual_tex/*.toc
+docs/manual_tex/*.listing
+
