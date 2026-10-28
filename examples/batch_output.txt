@@ -1,0 +1,78 @@
+dimension yield normality               shape              best_fit     method  capability  p_fail threshold_decision decision
+     D101 32|32      Fail strongly non-normal Largest extreme value Percentile      0.9434  0.9340             REJECT   REJECT
+     D102 31|32      Pass              skewed                Normal     Normal      0.7808  1.0000             REJECT   REJECT
+     D103 30|32      Pass         normal-like                Normal     Normal      0.5890  1.0000             REJECT   REJECT
+     D104 32|32      Pass         normal-like                Normal     Normal      2.8381  0.0000             ACCEPT   ACCEPT
+     D105 30|30      Pass         normal-like                Normal     Normal      1.4325  0.2993             ACCEPT   REJECT
+     D106 32|32      Fail         normal-like             Lognormal Percentile      1.2815  0.5350             REJECT   REJECT
+     D107   NaN       NaN                 NaN                   NaN        NaN         NaN     NaN                NaN    ERROR
+
+================================================================
+  PROCESS CAPABILITY STUDY
+================================================================
+         Sample size : 32
+       Specification : LSL = 4.52   Target = 4.62   USL = 4.72
+                Mean : 4.6615
+        Sigma within : 0.0200   (average moving range)
+       Sigma overall : 0.0250   (within / overall = 0.80)
+      Normality test : Anderson-Darling
+             p-value : 0.111   (normal at alpha = 0.05)
+         Other tests : SW p = 0.092   K2 p = 0.265   (reference)
+            Skewness :  0.636   (excess kurtosis -0.243)
+            Outliers : none flagged
+----------------------------------------------------------------
+  Normal-based indices
+
+              Within              Overall
+                  Cp :  1.664          Pp :  1.334
+                 Cpk :  0.974         Ppk :  0.781
+                 Cpu :  0.974         Ppu :  0.781
+                 Cpl :  2.355         Ppl :  1.887
+                 Cpm :  0.724         Ppm :  0.688
+                Cpmk :  0.424        Ppmk :  0.403
+----------------------------------------------------------------
+  Distribution ranking (sorted by AICc; lower is better) - reference only
+
+        Distribution   k   AIC        BIC        AICc       dAICc
+                 lev : 2   -146.1     -143.2     -145.7     0.0
+            weibull3 : 3   -146.2     -141.8     -145.3     0.4
+              gamma3 : 3   -145.5     -141.1     -144.7     1.1
+          lognormal3 : 3   -144.7     -140.3     -143.8     1.9
+           lognormal : 2   -142.4     -139.5     -142.0     3.7
+               gamma : 2   -142.4     -139.5     -142.0     3.7
+              normal : 2   -142.3     -139.4     -141.9     3.8
+             weibull : 2   -132.9     -129.9     -132.5     13.3
+                 sev : 2   -132.6     -129.7     -132.2     13.5
+         exponential : 1   164.5      166.0      164.7      310.4
+
+  k = parameters; dAICc = AICc - best AICc (< 2: about as good as the best)
+----------------------------------------------------------------
+  Parts per million outside the specification
+
+                              < LSL       > USL       Total
+            Observed :          0.0     31250.0     31250.0
+     Expected within :          0.0      1736.2      1736.2
+    Expected overall :          0.0      9581.5      9581.5
+----------------------------------------------------------------
+  Intervals (normal, overall sigma)
+
+     Prediction, 95% : [4.6097, 4.7132]   (next single part)
+  Tolerance, 99%/95% : [4.5786, 4.7443]   (99% of parts, 95% confidence)
+----------------------------------------------------------------
+     Capability used : Ppk = 0.781   (95% lower bound 0.593)
+================================================================
+================================================================
+  RISK-CALIBRATED APPROVAL
+================================================================
+         Requirement : Ppk >= C0 = 1.33
+          Risk basis : cost ratio c_FA/c_FR = 19  ->  alpha = 0.050
+----------------------------------------------------------------
+        Ppk estimate : 0.781
+      Standard error : 0.114
+        P(true < C0) : 1.000   (analytic)
+   Required estimate : 1.518   (C0 + 1.645 x SE at this estimate)
+   Smallest accepted : 1.691   (estimate that just passes with n = 32)
+----------------------------------------------------------------
+      Threshold rule : REJECT  (estimate < C0)
+     Risk-calibrated : REJECT  (P = 1.000 > alpha)
+================================================================
