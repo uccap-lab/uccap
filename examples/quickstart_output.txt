@@ -1,0 +1,200 @@
+================================================================
+  PROCESS CAPABILITY STUDY
+================================================================
+         Sample size : 32
+       Specification : LSL = 4.52   Target = 4.62   USL = 4.72
+                Mean : 4.6266
+        Sigma within : 0.0200   (average moving range)
+       Sigma overall : 0.0194   (within / overall = 1.03)
+      Normality test : Anderson-Darling
+             p-value : 0.920   (normal at alpha = 0.05)
+         Other tests : SW p = 0.984   K2 p = 0.757   (reference)
+            Skewness : -0.076   (excess kurtosis 0.163)
+            Outliers : 2 flagged (obs. 5, 31), review before use
+----------------------------------------------------------------
+  Normal-based indices
+
+              Within              Overall
+                  Cp :  1.666          Pp :  1.716
+                 Cpk :  1.556         Ppk :  1.603
+                 Cpu :  1.556         Ppu :  1.603
+                 Cpl :  1.776         Ppl :  1.830
+                 Cpm :  1.582         Ppm :  1.625
+                Cpmk :  1.477        Ppmk :  1.518
+----------------------------------------------------------------
+  Distribution ranking (sorted by AICc; lower is better) - reference only
+
+        Distribution   k   AIC        BIC        AICc       dAICc
+              normal : 2   -158.5     -155.5     -158.0     0.0
+               gamma : 2   -158.5     -155.5     -158.0     0.0
+           lognormal : 2   -158.4     -155.5     -158.0     0.0
+              gamma3 : 3   -156.5     -152.1     -155.6     2.4
+          lognormal3 : 3   -156.5     -152.1     -155.6     2.4
+            weibull3 : 3   -156.4     -152.0     -155.5     2.5
+             weibull : 2   -153.6     -150.7     -153.2     4.8
+                 sev : 2   -153.5     -150.5     -153.1     5.0
+                 lev : 2   -152.5     -149.6     -152.1     5.9
+         exponential : 1   164.0      165.5      164.2      322.2
+
+  k = parameters; dAICc = AICc - best AICc (< 2: about as good as the best)
+----------------------------------------------------------------
+  Parts per million outside the specification
+
+                              < LSL       > USL       Total
+            Observed :          0.0         0.0         0.0
+     Expected within :          0.0         1.5         1.6
+    Expected overall :          0.0         0.8         0.8
+----------------------------------------------------------------
+  Intervals (normal, overall sigma)
+
+     Prediction, 95% : [4.5864, 4.6668]   (next single part)
+  Tolerance, 99%/95% : [4.5622, 4.6910]   (99% of parts, 95% confidence)
+----------------------------------------------------------------
+     Capability used : Ppk = 1.603   (95% lower bound 1.259)
+================================================================
+================================================================
+  RISK-CALIBRATED APPROVAL
+================================================================
+         Requirement : Ppk >= C0 = 1.33
+          Risk basis : cost ratio c_FA/c_FR = 19  ->  alpha = 0.050
+----------------------------------------------------------------
+        Ppk estimate : 1.603
+      Standard error : 0.209
+        P(true < C0) : 0.096   (analytic)
+   Required estimate : 1.674   (C0 + 1.645 x SE at this estimate)
+   Smallest accepted : 1.691   (estimate that just passes with n = 32)
+----------------------------------------------------------------
+      Threshold rule : ACCEPT  (estimate >= C0)
+     Risk-calibrated : REJECT  (P = 0.096 > alpha)
+
+  Note: the two rules differ because the estimate is close to C0 for this
+  sample size. C0 is unchanged; the calibrated rule shows how much evidence
+  the sample gives. More parts or the actual cost ratio settle the case.
+================================================================
+================================================================
+  PROCESS CAPABILITY STUDY
+================================================================
+         Sample size : 30   (of 32; 2 excluded: obs. 5, 31)
+       Specification : LSL = 4.52   Target = 4.62   USL = 4.72
+                Mean : 4.6266
+        Sigma within : 0.0171   (average moving range)
+       Sigma overall : 0.0158   (within / overall = 1.08)
+      Normality test : Anderson-Darling
+             p-value : 0.679   (normal at alpha = 0.05)
+         Other tests : SW p = 0.562   K2 p = 0.385   (reference)
+            Skewness : -0.211   (excess kurtosis -0.903)
+            Outliers : 2 flagged (obs. 5, 31), excluded
+----------------------------------------------------------------
+  Normal-based indices
+
+              Within              Overall
+                  Cp :  1.951          Pp :  2.107
+                 Cpk :  1.823         Ppk :  1.968
+                 Cpu :  1.823         Ppu :  1.968
+                 Cpl :  2.079         Ppl :  2.245
+                 Cpm :  1.821         Ppm :  1.946
+                Cpmk :  1.702        Ppmk :  1.818
+----------------------------------------------------------------
+  Distribution ranking (sorted by AICc; lower is better) - reference only
+
+        Distribution   k   AIC        BIC        AICc       dAICc
+              normal : 2   -160.7     -157.9     -160.2     0.0
+               gamma : 2   -160.6     -157.8     -160.2     0.0
+           lognormal : 2   -160.6     -157.8     -160.2     0.0
+             weibull : 2   -160.3     -157.5     -159.8     0.4
+                 sev : 2   -160.3     -157.5     -159.8     0.4
+            weibull3 : 3   -159.7     -155.5     -158.7     1.5
+              gamma3 : 3   -158.7     -154.4     -157.7     2.5
+          lognormal3 : 3   -158.6     -154.4     -157.7     2.5
+                 lev : 2   -156.2     -153.3     -155.7     4.5
+         exponential : 1   153.9      155.3      154.1      314.3
+
+  k = parameters; dAICc = AICc - best AICc (< 2: about as good as the best)
+----------------------------------------------------------------
+  Parts per million outside the specification
+
+                              < LSL       > USL       Total
+            Observed :          0.0         0.0         0.0
+     Expected within :          0.0         0.0         0.0
+    Expected overall :          0.0         0.0         0.0
+----------------------------------------------------------------
+  Intervals (normal, overall sigma)
+
+     Prediction, 95% : [4.5937, 4.6595]   (next single part)
+  Tolerance, 99%/95% : [4.5736, 4.6796]   (99% of parts, 95% confidence)
+----------------------------------------------------------------
+     Capability used : Ppk = 1.968   (95% lower bound 1.539)
+================================================================
+================================================================
+  RISK-CALIBRATED APPROVAL
+================================================================
+         Requirement : Ppk >= C0 = 1.33
+          Risk basis : cost ratio c_FA/c_FR = 19  ->  alpha = 0.050
+----------------------------------------------------------------
+        Ppk estimate : 1.968
+      Standard error : 0.261
+        P(true < C0) : 0.007   (analytic)
+   Required estimate : 1.760   (C0 + 1.645 x SE at this estimate)
+   Smallest accepted : 1.706   (estimate that just passes with n = 30)
+----------------------------------------------------------------
+      Threshold rule : ACCEPT  (estimate >= C0)
+     Risk-calibrated : ACCEPT  (P = 0.007 <= alpha)
+================================================================
+
+================================================================
+  PROCESS CAPABILITY STUDY
+================================================================
+         Sample size : 60
+       Specification : USL = 0.12   (one-sided)
+                Mean : 0.0198
+        Sigma within : 0.0090   (average moving range)
+       Sigma overall : 0.0091   (within / overall = 0.98)
+      Normality test : Anderson-Darling
+             p-value : 0.002   (non-normal at alpha = 0.05)
+         Other tests : SW p = 0.000   K2 p = 0.000   (reference)
+            Skewness :  1.314   (excess kurtosis 2.379)
+            Outliers : 4 flagged (obs. 8, 45, 50, 59), review before use
+----------------------------------------------------------------
+  Percentile-based indices (best fit: lognormal)
+
+                CNpk :  2.056
+                CNpu :  2.056
+----------------------------------------------------------------
+  Distribution ranking (sorted by AICc; lower is better)
+
+        Distribution   k   AIC        BIC        AICc       dAICc
+           lognormal : 2   -406.0     -401.8     -405.8     0.0
+                 lev : 2   -405.5     -401.3     -405.3     0.5
+               gamma : 2   -404.6     -400.4     -404.4     1.4
+          lognormal3 : 3   -404.0     -397.8     -403.6     2.2
+              gamma3 : 3   -403.8     -397.6     -403.4     2.4
+            weibull3 : 3   -402.7     -396.4     -402.3     3.5
+             weibull : 2   -397.5     -393.3     -397.3     8.5
+              normal : 2   -390.2     -386.0     -390.0     15.8
+                 sev : 2   -357.5     -353.3     -357.3     48.5
+         exponential : 1   -348.4     -346.3     -348.4     57.4
+
+  k = parameters; dAICc = AICc - best AICc (< 2: about as good as the best)
+----------------------------------------------------------------
+  Parts per million outside the specification
+
+                              < LSL       > USL       Total
+            Observed :          0.0         0.0         0.0
+    Expected overall :          0.0         8.5         8.5
+----------------------------------------------------------------
+     Capability used : CNpk = 2.056   (95% lower bound 1.740)
+================================================================
+================================================================
+  RISK-CALIBRATED APPROVAL
+================================================================
+         Requirement : CNpk >= C0 = 1.33
+          Risk basis : tolerable failure probability, alpha = 0.050
+----------------------------------------------------------------
+       CNpk estimate : 2.056
+      Standard error : 0.193   (analytic, for reference)
+        P(true < C0) : 0.005   (bootstrap)
+   Required estimate : 1.647   (analytic: C0 + 1.645 x SE; for reference)
+----------------------------------------------------------------
+      Threshold rule : ACCEPT  (estimate >= C0)
+     Risk-calibrated : ACCEPT  (P = 0.005 <= alpha)
+================================================================
