@@ -1,0 +1,21 @@
+dimension  subgroups  Ppk_normal  pi_final  pi_min  first_intervention      zone                   category
+     M101        120      1.2557    0.9995  0.9630                <NA>  continue no intervention-zone entry
+     M102        120      0.9352    0.7545  0.1285                  65 intervene  persistent low-confidence
+     M103        120      1.1561    0.9960  0.7285                  57  continue        recovered transient
+     M104        120      1.0961    0.0950  0.0735                  83 intervene  persistent low-confidence
+
+Operational acceptability monitoring: M102
+             Specification  LSL 9.9, USL 10.1
+     Conformance target q0  0.997 (Cpk about 0.9892 for a centred process)
+                     Zones  continue if pi >= 0.95, intervene if pi <= 0.8 (t >= 10)
+         Forgetting factor  0.95 (half-life 13.5 subgroups)
+                     Prior  mu0 10, kappa0 0.001, alpha0 2, beta0 0.000625
+                 Subgroups  120 of size 5, 2000 posterior draws each
+                  Final pi  0.7545 -> intervene
+    Lowest pi (t >= t_min)  0.1285
+        First intervention  subgroup 65
+                  Category  persistent low-confidence
+        Subgroups per zone  continue 61, monitor 10, intervene 49
+
+written: monitor_results.html
+written: monitor_overview.png, M102_monitor.png
