@@ -1,0 +1,62 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the articles below for the modules you use. Both authors contributed equally."
+title: "uccap: Process Capability Analysis, Risk-Calibrated Approval and Hybrid Statistical Learning Decision Support with Finite Samples"
+authors:
+  - family-names: Yang
+    given-names: Lei
+  - family-names: Jiang
+    given-names: Fei
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/FEI-JIANG/uccap"
+references:
+  - type: article
+    title: "Practical Process Capability Indices Workflows"
+    authors:
+      - {family-names: Jiang, given-names: Fei}
+      - {family-names: Yang, given-names: Lei}
+    journal: "The International Journal of Advanced Manufacturing Technology"
+    publisher: {name: Springer}
+    volume: 143
+    issue: "7-8"
+    start: 3581
+    end: 3599
+    year: 2026
+    doi: "10.1007/s00170-026-17782-7"
+    identifiers:
+      - {type: other, value: "arXiv:2604.15544"}
+  - type: article
+    title: "Risk-Calibrated Process Capability Approval with Finite Samples"
+    authors:
+      - {family-names: Jiang, given-names: Fei}
+      - {family-names: Yang, given-names: Lei}
+    journal: "The International Journal of Advanced Manufacturing Technology"
+    publisher: {name: Springer}
+    volume: 144
+    issue: "9-10"
+    start: 7189
+    end: 7206
+    year: 2026
+    doi: "10.1007/s00170-026-18284-2"
+    identifiers:
+      - {type: other, value: "arXiv:2603.14479"}
+  - type: article
+    title: "A Hybrid Statistical Learning Framework for Capability-Based Decision Support in Manufacturing"
+    authors:
+      - {family-names: Jiang, given-names: Fei}
+      - {family-names: Yang, given-names: Lei}
+    journal: "The International Journal of Advanced Manufacturing Technology"
+    publisher: {name: Springer}
+    year: 2026
+    doi: "10.1007/s00170-026-18833-9"
+    identifiers:
+      - {type: other, value: "arXiv:2604.13352"}
+  - type: article
+    title: "Bayesian Operational Acceptability Monitoring for Manufacturing Process Control"
+    authors:
+      - {family-names: Jiang, given-names: Fei}
+      - {family-names: Yang, given-names: Lei}
+    journal: "The International Journal of Advanced Manufacturing Technology"
+    publisher: {name: Springer}
+    year: 2026
+    status: in-press

@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "uccap"
+dynamic = ["version"]
+description = "Process Capability Analysis, Risk-Calibrated Approval and Hybrid Statistical Learning Decision Support with Finite Samples"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Lei Yang" }, { name = "Fei Jiang" }]
+dependencies = ["numpy>=1.22", "scipy>=1.11", "pandas>=1.5"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Operating System :: OS Independent",
+]
+keywords = ["process capability", "Cpk", "uncertainty quantification", "decision under uncertainty", "statistical quality control"]
+
+[project.scripts]
+uccap = "uccap.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/FEI-JIANG/uccap"
+Documentation = "https://github.com/FEI-JIANG/uccap/blob/main/docs/MANUAL.md"
+Issues = "https://github.com/FEI-JIANG/uccap/issues"
+Changelog = "https://github.com/FEI-JIANG/uccap/blob/main/CHANGELOG.md"
+Source = "https://github.com/FEI-JIANG/uccap"
+
+[project.optional-dependencies]
+excel = ["openpyxl>=3.0"]
+plot = ["matplotlib>=3.5"]
+test = ["pytest", "openpyxl>=3.0", "matplotlib>=3.5"]
+dev = ["uccap[test]", "ruff", "nbclient", "ipykernel"]
+
+[tool.hatch.version]
+path = "src/uccap/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/uccap"]
+
+# The source distribution holds what is needed to build, test and cite the package; the manual
+# stays in the repository.
+[tool.hatch.build.targets.sdist]
+include = ["src/uccap", "tests", "validation", "templates", "README.md", "CHANGELOG.md",
+           "CITATION.cff", "LICENSE", "pyproject.toml"]
+exclude = ["__pycache__"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["F", "E9", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["F401"]  # notebooks import matplotlib for the reader's own plots
