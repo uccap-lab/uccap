@@ -92,8 +92,8 @@ def _top_legend(ax, note=None):
 def _value_labels(ax, t, y, mask, decimals=None):
     """Write each value next to its point (the raw data): above a local peak, below a local dip."""
     ts, ys = t[mask], y[mask]
-    if decimals is None:  # enough decimals to show the data as recorded, at most 6
-        decimals = next((d for d in range(7) if np.allclose(ys, np.round(ys, d), rtol=0, atol=1e-9)), 6)
+    if decimals is None:  # as many decimals as the data have, at most 3
+        decimals = next((d for d in range(4) if np.allclose(ys, np.round(ys, d), rtol=0, atol=1e-9)), 3)
     for i, (ti, yi) in enumerate(zip(ts, ys)):
         nb = [ys[j] for j in (i - 1, i + 1) if 0 <= j < ys.size]
         up = not nb or yi >= np.mean(nb)
@@ -190,7 +190,7 @@ def _series(study):
 def individuals_chart(study, ax=None, show_data=False):
     """Individuals (I) chart: values in time order with mean and 3-sigma-within limits.
 
-    ``show_data=True`` writes each value next to its point.
+    ``show_data=True`` writes each value next to its point (at most 3 decimals).
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
@@ -224,7 +224,7 @@ def individuals_chart(study, ax=None, show_data=False):
 def moving_range_chart(study, ax=None, show_data=False):
     """Moving range (MR) chart; ranges never bridge missing or excluded points.
 
-    ``show_data=True`` writes each moving range next to its point.
+    ``show_data=True`` writes each moving range next to its point (at most 3 decimals).
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
@@ -325,7 +325,7 @@ def outlier_chart(study, ax=None, show_data=False):
     the skewness-adjusted boxplot otherwise, coefficient ``outlier_k``); flagged points
     are marked, excluded points drawn hollow. Grubbs' test has no fixed fences, so only
     the flagged points are shown. The fence note and the legend sit above the plot area;
-    ``show_data=True`` writes each value next to its point.
+    ``show_data=True`` writes each value next to its point (at most 3 decimals).
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
