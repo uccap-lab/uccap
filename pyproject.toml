@@ -33,11 +33,11 @@ keywords = ["process capability", "Cpk", "uncertainty quantification", "decision
 uccap = "uccap.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/FEI-JIANG/uccap"
-Documentation = "https://github.com/FEI-JIANG/uccap/blob/main/docs/MANUAL.md"
-Issues = "https://github.com/FEI-JIANG/uccap/issues"
-Changelog = "https://github.com/FEI-JIANG/uccap/blob/main/CHANGELOG.md"
-Source = "https://github.com/FEI-JIANG/uccap"
+Homepage = "https://github.com/fei-jiang/uccap"
+Documentation = "https://github.com/fei-jiang/uccap/blob/main/docs/MANUAL.md"
+Issues = "https://github.com/fei-jiang/uccap/issues"
+Changelog = "https://github.com/fei-jiang/uccap/blob/main/CHANGELOG.md"
+Source = "https://github.com/fei-jiang/uccap"
 
 [project.optional-dependencies]
 excel = ["openpyxl>=3.0"]

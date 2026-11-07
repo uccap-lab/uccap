@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/FEI-JIANG/uccap/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/FEI-JIANG/uccap/actions/workflows/tests.yml/badge.svg"></a>
+  <a href="https://github.com/fei-jiang/uccap/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/fei-jiang/uccap/actions/workflows/tests.yml/badge.svg"></a>
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-1D5C78">
   <a href="https://doi.org/10.1007/s00170-026-17782-7"><img alt="Workflow paper" src="https://img.shields.io/badge/IJAMT-workflow-1D5C78"></a>
   <a href="https://doi.org/10.1007/s00170-026-18284-2"><img alt="Risk paper" src="https://img.shields.io/badge/IJAMT-risk-1D5C78"></a>
@@ -18,8 +18,8 @@
 <p align="center">
   <a href="#quick-start">Quick start</a> ·
   <a href="#preparing-your-data">Data format</a> ·
-  <a href="https://github.com/FEI-JIANG/uccap/blob/main/docs/manual_tex/uccap_manual.pdf">User manual (PDF)</a> ·
-  <a href="https://github.com/FEI-JIANG/uccap/blob/main/docs/validation.md">Validation</a> ·
+  <a href="https://github.com/fei-jiang/uccap/blob/main/docs/manual_tex/uccap_manual.pdf">User manual (PDF)</a> ·
+  <a href="https://github.com/fei-jiang/uccap/blob/main/docs/validation.md">Validation</a> ·
   <a href="#citing">Citing</a>
 </p>
 
@@ -168,9 +168,9 @@ data used for training are not public.
 
 ## Preparing your data
 
-Start from a template in [`templates/`](https://github.com/FEI-JIANG/uccap/tree/main/templates): [`uccap_template.xlsx`](https://github.com/FEI-JIANG/uccap/blob/main/templates/uccap_template.xlsx),
-[`multiple_dimensions.csv`](https://github.com/FEI-JIANG/uccap/blob/main/templates/multiple_dimensions.csv) or
-[`single_dimension.csv`](https://github.com/FEI-JIANG/uccap/blob/main/templates/single_dimension.csv). Specifications go on top, measurements below:
+Start from a template in [`templates/`](https://github.com/fei-jiang/uccap/tree/main/templates): [`uccap_template.xlsx`](https://github.com/fei-jiang/uccap/blob/main/templates/uccap_template.xlsx),
+[`multiple_dimensions.csv`](https://github.com/fei-jiang/uccap/blob/main/templates/multiple_dimensions.csv) or
+[`single_dimension.csv`](https://github.com/fei-jiang/uccap/blob/main/templates/single_dimension.csv). Specifications go on top, measurements below:
 
 | Dimension | D101  | D102   | D103  | D104  |
 |-----------|-------|--------|-------|-------|
@@ -196,12 +196,12 @@ recognised; see Chapter 4 of the manual.
 
 | | |
 |---|---|
-| [User manual (PDF)](https://github.com/FEI-JIANG/uccap/blob/main/docs/manual_tex/uccap_manual.pdf) | The complete manual: workflow diagrams, every option, how to read the reports, warnings, API reference, formulas |
-| [Manual (Markdown version)](https://github.com/FEI-JIANG/uccap/blob/main/docs/MANUAL.md) | The full manual for reading on GitHub, generated from the PDF source |
-| [Validation](https://github.com/FEI-JIANG/uccap/blob/main/docs/validation.md) | Comparison with R and the NIST/SEMATECH handbook, reproduction of the articles' published results, Minitab check package |
-| [Notebooks](https://github.com/FEI-JIANG/uccap/tree/main/examples/notebooks) | One per article: [workflow](https://github.com/FEI-JIANG/uccap/blob/main/examples/notebooks/01_workflow.ipynb), [risk-calibrated approval](https://github.com/FEI-JIANG/uccap/blob/main/examples/notebooks/02_risk_calibrated_approval.ipynb), [UC-Cap risk score](https://github.com/FEI-JIANG/uccap/blob/main/examples/notebooks/03_uccap_hybrid_risk.ipynb), [monitoring](https://github.com/FEI-JIANG/uccap/blob/main/examples/notebooks/04_acceptability_monitoring.ipynb) |
-| [Examples](https://github.com/FEI-JIANG/uccap/tree/main/examples) | `quickstart.py`, `batch_example.py`, `hybrid_example.py`, `plots_example.py`, `planning_example.py`, `monitor_example.py` |
-| [Changelog](https://github.com/FEI-JIANG/uccap/blob/main/CHANGELOG.md) · [Contributing](https://github.com/FEI-JIANG/uccap/blob/main/CONTRIBUTING.md) | |
+| [User manual (PDF)](https://github.com/fei-jiang/uccap/blob/main/docs/manual_tex/uccap_manual.pdf) | The complete manual: workflow diagrams, every option, how to read the reports, warnings, API reference, formulas |
+| [Manual (Markdown version)](https://github.com/fei-jiang/uccap/blob/main/docs/MANUAL.md) | The full manual for reading on GitHub, generated from the PDF source |
+| [Validation](https://github.com/fei-jiang/uccap/blob/main/docs/validation.md) | Comparison with R and the NIST/SEMATECH handbook, reproduction of the articles' published results, Minitab check package |
+| [Notebooks](https://github.com/fei-jiang/uccap/tree/main/examples/notebooks) | One per article: [workflow](https://github.com/fei-jiang/uccap/blob/main/examples/notebooks/01_workflow.ipynb), [risk-calibrated approval](https://github.com/fei-jiang/uccap/blob/main/examples/notebooks/02_risk_calibrated_approval.ipynb), [UC-Cap risk score](https://github.com/fei-jiang/uccap/blob/main/examples/notebooks/03_uccap_hybrid_risk.ipynb), [monitoring](https://github.com/fei-jiang/uccap/blob/main/examples/notebooks/04_acceptability_monitoring.ipynb) |
+| [Examples](https://github.com/fei-jiang/uccap/tree/main/examples) | `quickstart.py`, `batch_example.py`, `hybrid_example.py`, `plots_example.py`, `planning_example.py`, `monitor_example.py` |
+| [Changelog](https://github.com/fei-jiang/uccap/blob/main/CHANGELOG.md) · [Contributing](https://github.com/fei-jiang/uccap/blob/main/CONTRIBUTING.md) | |
 
 ## Validation
 
@@ -212,11 +212,11 @@ The published results of the articles are reproduced as well: the constants and 
 workflow article, Tables 1 and 2 of the risk article's simulation study, and the operating
 characteristics of the monitoring article (Tables 4 and 11), all with the test suite. The UC-Cap model parameters reproduced the test metrics of their article (Table 10) when they were
 exported, on the original data, which are not public; that check is therefore not part of the test
-suite. See [docs/validation.md](https://github.com/FEI-JIANG/uccap/blob/main/docs/validation.md).
+suite. See [docs/validation.md](https://github.com/fei-jiang/uccap/blob/main/docs/validation.md).
 
 ## Citing
 
-Please cite the article behind each module you use ([`CITATION.cff`](https://github.com/FEI-JIANG/uccap/blob/main/CITATION.cff) lists them).
+Please cite the article behind each module you use ([`CITATION.cff`](https://github.com/fei-jiang/uccap/blob/main/CITATION.cff) lists them).
 `uccap.cite()` (or `uccap --cite`) prints the BibTeX below; `uccap.cite("risk")` gives one entry.
 
 ```bibtex
@@ -269,7 +269,7 @@ Lei Yang and Fei Jiang contributed equally to `uccap`.
 | Plots | `src/uccap/plot.py` | Fei&nbsp;Jiang |
 | User manual and README | `docs/MANUAL.md`, `docs/manual_tex/`, `README.md` | Fei&nbsp;Jiang |
 
-The [commit history](https://github.com/FEI-JIANG/uccap/commits/main) records every change and its author.
+The [commit history](https://github.com/fei-jiang/uccap/commits/main) records every change and its author.
 
 ## License
 

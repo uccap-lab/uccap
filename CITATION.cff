@@ -8,7 +8,7 @@ authors:
     given-names: Fei
 version: 0.1.0
 license: MIT
-repository-code: "https://github.com/FEI-JIANG/uccap"
+repository-code: "https://github.com/fei-jiang/uccap"
 references:
   - type: article
     title: "Practical Process Capability Indices Workflows"
