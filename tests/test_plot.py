@@ -58,3 +58,20 @@ def test_grubbs_screen_has_no_fences():
     study = uccap.capability_study(x, lsl=9.95, usl=10.05, outlier_method="grubbs")
     assert study.outlier_fences is None
     plot.outlier_figure(study)
+
+
+def test_value_label_decimals():
+    x = np.round(np.random.default_rng(3).normal(10, 0.05, 20), 6)
+    study = uccap.capability_study(x, lsl=9.8, usl=10.2)
+
+    def labels(fig):
+        return [t.get_text() for t in fig.axes[0].texts if t.get_text()[:1].isdigit() and " " not in t.get_text()]
+
+    default = labels(study.plot(kind="stability", show_data=True))
+    assert default and all(len(s.split(".")[1]) == 3 for s in default)
+    two = labels(study.plot(kind="outliers", show_data=True, decimals=2))
+    assert two and all(len(s.split(".")[1]) == 2 for s in two)
+    coarse = uccap.capability_study(np.round(x, 1), lsl=9.8, usl=10.2)
+    assert all(len(s.split(".")[1]) == 1 for s in labels(coarse.plot(kind="stability", show_data=True)))
+    with pytest.raises(ValueError):
+        study.plot(kind="stability", show_data=True, decimals=-1)

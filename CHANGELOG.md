@@ -18,6 +18,8 @@ All notable changes are listed here. Versions follow [semantic versioning](https
   give their location; `model_available` tells whether they are found. Without them `hybrid_risk` raises
   `ModelNotAvailable`, `batch_study` and the command line leave out the UC-Cap columns and plots with a
   warning, and the model inputs and mechanism signals work as before.
+- Plots: the values written by `show_data=True` have as many decimals as the data, at most three; the new
+  `decimals` argument (command line `--decimals N`) sets the number.
 
 ## 0.1.0 — first public release
 

@@ -200,14 +200,15 @@ class CapabilityStudy:
 
     summary = report
 
-    def plot(self, decision=None, title=None, kind="overview", show_data=False):
+    def plot(self, decision=None, title=None, kind="overview", show_data=False, decimals=None):
         """Figure of the study (needs matplotlib).
 
         ``kind`` picks the group of panels: "overview" (histogram, probability plot,
         I-MR charts and, with a decision, the approval panel), "outliers", "stability",
         "capability", "approval" (computes the decision at alpha = 0.05 if none is given)
         or "uccap". ``show_data=True`` writes the raw values on the time-order charts
-        ("outliers" and "stability") and overlays them on the box plot.
+        ("outliers" and "stability") and overlays them on the box plot; ``decimals`` sets the
+        decimals of these labels (default: as many as the data have, at most 3).
         """
         from .. import plot as _p
         if kind == "overview":
@@ -220,7 +221,7 @@ class CapabilityStudy:
             raise ValueError('kind must be "overview", "outliers", "stability", "capability", "approval" '
                              'or "uccap"')
         if kind in ("outliers", "stability"):
-            return figures[kind](self, title=title, show_data=show_data)
+            return figures[kind](self, title=title, show_data=show_data, decimals=decimals)
         return figures[kind](self, title=title)
 
     def __str__(self) -> str:

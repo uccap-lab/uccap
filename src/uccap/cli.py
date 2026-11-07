@@ -44,6 +44,8 @@ def _parser() -> argparse.ArgumentParser:
                    help="write PNG figures of every dimension: overview (default), outliers, stability, "
                         "capability, approval, uccap, a comma-separated list, or all (needs matplotlib)")
     p.add_argument("--show-values", action="store_true", help="write the measured values on the outlier and stability charts")
+    p.add_argument("--decimals", type=int, metavar="N",
+                   help="decimals of the values written by --show-values (default: as many as the data have, at most 3)")
     p.add_argument("--quiet", action="store_true", help="do not print the summary table")
     p.add_argument("--cite", action="store_true", help="print how to cite uccap and the articles, then exit")
     p.add_argument("--version", action="store_true", help="print the version and exit")
@@ -200,7 +202,7 @@ def _kinds(spec: str) -> list:
     return kinds
 
 
-def _write_plots(result, kinds, folder: pathlib.Path, show_values: bool) -> list:
+def _write_plots(result, kinds, folder: pathlib.Path, show_values: bool, decimals=None) -> list:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -230,7 +232,8 @@ def _write_plots(result, kinds, folder: pathlib.Path, show_values: bool) -> list
                 skipped.append(f"{dim} approval")
                 continue
             else:
-                fig = study.plot(decision, title=str(dim), kind=kind, show_data=show_values)
+                fig = study.plot(decision, title=str(dim), kind=kind, show_data=show_values,
+                                 decimals=decimals)
             save(fig, f"{safe}_{kind}.png")
     for d, err in result.errors.items():
         skipped.append(f"{d} ({err})")
@@ -285,7 +288,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     figures = []
     if args.plots:
         folder = stem.with_name(stem.name + "_plots")
-        figures = _write_plots(result, _kinds(args.plots), folder, args.show_values)
+        figures = _write_plots(result, _kinds(args.plots), folder, args.show_values, args.decimals)
     if not args.quiet:
         cols = [c for c in ("dimension", "n", "normality", "Ppk", "p_fail", "threshold_decision", "decision",
                             "risk_score", "risk_level") if c in result.frame.columns]

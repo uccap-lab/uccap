@@ -92,6 +92,8 @@ def _top_legend(ax, note=None):
 def _value_labels(ax, t, y, mask, decimals=None):
     """Write each value next to its point (the raw data): above a local peak, below a local dip."""
     ts, ys = t[mask], y[mask]
+    if decimals is not None and (isinstance(decimals, bool) or not isinstance(decimals, (int, np.integer)) or decimals < 0):
+        raise ValueError("decimals must be None or a non-negative integer")
     if decimals is None:  # as many decimals as the data have, at most 3
         decimals = next((d for d in range(4) if np.allclose(ys, np.round(ys, d), rtol=0, atol=1e-9)), 3)
     for i, (ti, yi) in enumerate(zip(ts, ys)):
@@ -187,10 +189,11 @@ def _series(study):
     return raw, excluded
 
 
-def individuals_chart(study, ax=None, show_data=False):
+def individuals_chart(study, ax=None, show_data=False, decimals=None):
     """Individuals (I) chart: values in time order with mean and 3-sigma-within limits.
 
-    ``show_data=True`` writes each value next to its point (at most 3 decimals).
+    ``show_data=True`` writes each value next to its point; ``decimals`` sets the number of
+    decimals (default: as many as the data have, at most 3).
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
@@ -213,7 +216,7 @@ def individuals_chart(study, ax=None, show_data=False):
         ax.annotate(f"{label} {y:.4g}", (1, y), xycoords=("axes fraction", "data"), xytext=(3, 0),
                     textcoords="offset points", va="center", fontsize=7.5, color=INK_2)
     if show_data:
-        _value_labels(ax, t, raw, np.isfinite(raw))
+        _value_labels(ax, t, raw, np.isfinite(raw), decimals)
     _top_legend(ax)
     ax.set_xlabel("observation (time order)")
     ax.set_ylabel("value")
@@ -221,10 +224,11 @@ def individuals_chart(study, ax=None, show_data=False):
     return ax
 
 
-def moving_range_chart(study, ax=None, show_data=False):
+def moving_range_chart(study, ax=None, show_data=False, decimals=None):
     """Moving range (MR) chart; ranges never bridge missing or excluded points.
 
-    ``show_data=True`` writes each moving range next to its point (at most 3 decimals).
+    ``show_data=True`` writes each moving range next to its point; ``decimals`` as in
+    ``individuals_chart``.
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
@@ -245,7 +249,7 @@ def moving_range_chart(study, ax=None, show_data=False):
         ax.annotate(f"{label} {y:.3g}", (1, y), xycoords=("axes fraction", "data"), xytext=(3, 0),
                     textcoords="offset points", va="center", fontsize=7.5, color=INK_2)
     if show_data:
-        _value_labels(ax, t, mr, ok)
+        _value_labels(ax, t, mr, ok, decimals)
     ax.set_ylim(bottom=0)
     ax.set_xlabel("observation (time order)")
     ax.set_ylabel("moving range")
@@ -318,14 +322,14 @@ def _fence_label(study):
     return f"{name} fences, k = {k:g}"
 
 
-def outlier_chart(study, ax=None, show_data=False):
+def outlier_chart(study, ax=None, show_data=False, decimals=None):
     """Values in time order against the fences of the outlier screen.
 
     The fences come from the screen chosen for the study (IQR fences for normal data,
     the skewness-adjusted boxplot otherwise, coefficient ``outlier_k``); flagged points
     are marked, excluded points drawn hollow. Grubbs' test has no fixed fences, so only
     the flagged points are shown. The fence note and the legend sit above the plot area;
-    ``show_data=True`` writes each value next to its point (at most 3 decimals).
+    ``show_data=True`` writes each value next to its point; ``decimals`` as in ``individuals_chart``.
     """
     ax = _ax(ax, (6.4, 3.0))
     raw, excluded = _series(study)
@@ -359,7 +363,7 @@ def outlier_chart(study, ax=None, show_data=False):
     else:
         note = "Grubbs test (no fixed fences)"
     if show_data:
-        _value_labels(ax, t, raw, ok)
+        _value_labels(ax, t, raw, ok, decimals)
     _top_legend(ax, f"{note}: {int(flagged.sum())} flagged")
     ax.set_xlabel("observation (time order)")
     ax.set_ylabel("value")
@@ -523,12 +527,13 @@ def _figure(panels, title, figsize, width_ratios=None, height_ratios=None, ncols
     return fig
 
 
-def outlier_figure(study, title=None, show_data=False):
+def outlier_figure(study, title=None, show_data=False, decimals=None):
     """Outlier screen: values in time order against the fences, and the box plot.
 
-    ``show_data=True`` labels every point with its value and overlays the values on the box plot.
+    ``show_data=True`` labels every point with its value and overlays the values on the box plot;
+    ``decimals`` sets the decimals of the labels (default: as many as the data have, at most 3).
     """
-    fig = _figure([lambda ax: outlier_chart(study, ax, show_data), lambda ax: outlier_box(study, ax, show_data)],
+    fig = _figure([lambda ax: outlier_chart(study, ax, show_data, decimals), lambda ax: outlier_box(study, ax, show_data)],
                   title, (10, 3.6),
                   width_ratios=[5, 1])
     a, b = fig.axes[:2]
@@ -537,13 +542,13 @@ def outlier_figure(study, title=None, show_data=False):
     return fig
 
 
-def stability_figure(study, title=None, show_data=False):
+def stability_figure(study, title=None, show_data=False, decimals=None):
     """Stability over time: individuals chart and moving range chart (control limits, not outlier fences).
 
-    ``show_data=True`` labels every point with its value.
+    ``show_data=True`` labels every point with its value; ``decimals`` as in ``outlier_figure``.
     """
-    return _figure([lambda ax: individuals_chart(study, ax, show_data),
-                    lambda ax: moving_range_chart(study, ax, show_data)], title,
+    return _figure([lambda ax: individuals_chart(study, ax, show_data, decimals),
+                    lambda ax: moving_range_chart(study, ax, show_data, decimals)], title,
                    (10, 5.6), ncols=1)
 
 
