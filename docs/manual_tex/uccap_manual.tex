@@ -941,19 +941,18 @@ counterpart $C_{Npk}$, is the one used for approval.
 
 \begin{figure}[!htp]
 \centering
-\begin{tikzpicture}[node distance=6mm, fbox/.append style={minimum height=7.5mm}]
+\begin{tikzpicture}[node distance=4.5mm, fbox/.append style={minimum height=7mm, inner ysep=3pt}]
   \node[gbox, minimum width=60mm] (in) {Measurements in production order, LSL, USL, target};
   \node[fbox, minimum width=60mm, below=of in] (chk) {\textbf{1\enspace Data checks}\\{\scriptsize drop missing and unreadable entries; $n \ge 8$; not constant}};
   \node[fbox, minimum width=60mm, below=of chk] (out) {\textbf{2\enspace Outlier screen}\\{\scriptsize IQR fences (normal) or adjusted boxplot (skewed); flag only}};
-  \node[ask, below=6mm of out] (exc) {excluded\\on request?};
-  \node[fbox, minimum width=60mm, below=6mm of exc] (sig) {\textbf{3\enspace Sigma estimates}\\{\scriptsize within (moving range or pooled) and overall (sample SD)}};
-  \node[ask, below=6mm of sig] (nt) {\textbf{4}\enspace normality test\\$p \ge \alpha$?};
-  \node[fbox, minimum width=54mm, minimum height=14.5mm, below left=6mm and -4mm of nt] (nrm) {\textbf{5a\enspace Normal indices}\\{\scriptsize $C_p, C_{pk}, C_{pm}, C_{pmk}$ (within)}\\{\scriptsize $P_p, P_{pk}$ (overall)}};
-  \node[fbox, minimum width=54mm, minimum height=14.5mm, below right=6mm and -4mm of nt] (fit) {\textbf{5b\enspace Best fit by AICc}\\{\scriptsize 10 candidate families}};
-  \node[fbox, minimum width=54mm, minimum height=10mm, below=6mm of fit] (pct) {\textbf{6\enspace Percentile indices}\\{\scriptsize $C_{Np}, C_{Npk}$ from $P_{0.135}, P_{50}, P_{99.865}$}};
-  \node[gbox, minimum width=54mm, minimum height=10mm, below=6mm of nrm] (rank) {AICc ranking printed\\for reference only};
-  \node[dbox, minimum width=86mm, anchor=north] (use) at ($(rank.south -| nt.south)+(0,-7mm)$) {Capability used for approval: $\Ppkhat$ or $\widehat C_{Npk}$};
-  \node[wbox, minimum width=60mm, below=6mm of use] (rd) {\code{risk\_decision} (\chapref{ch:risk})};
+  \node[ask, below=4.5mm of out] (exc) {excluded\\on request?};
+  \node[fbox, minimum width=60mm, below=4.5mm of exc] (sig) {\textbf{3\enspace Sigma estimates}\\{\scriptsize within (moving range or pooled) and overall (sample SD)}};
+  \node[ask, below=4.5mm of sig] (nt) {\textbf{4}\enspace normality test\\$p \ge \alpha$?};
+  \node[fbox, minimum width=54mm, minimum height=14mm, below left=4.5mm and -4mm of nt] (nrm) {\textbf{5a\enspace Normal indices}\\{\scriptsize $C_p, C_{pk}, C_{pm}, C_{pmk}$ (within); $P_p, P_{pk}$ (overall)}\\{\scriptsize AICc ranking printed for reference only}};
+  \node[fbox, minimum width=54mm, minimum height=14mm, below right=4.5mm and -4mm of nt] (fit) {\textbf{5b\enspace Best fit by AICc}\\{\scriptsize 10 candidate families}};
+  \node[fbox, minimum width=54mm, minimum height=9.5mm, below=4.5mm of fit] (pct) {\textbf{6\enspace Percentile indices}\\{\scriptsize $C_{Np}, C_{Npk}$ from $P_{0.135}, P_{50}, P_{99.865}$}};
+  \node[dbox, minimum width=86mm, anchor=north] (use) at ($(pct.south -| nt.south)+(0,-4.5mm)$) {Capability used for approval: $\Ppkhat$ or $\widehat C_{Npk}$};
+  \node[wbox, minimum width=60mm, below=4.5mm of use] (rd) {\code{risk\_decision} (\chapref{ch:risk})};
   \draw[arr] (in) -- (chk);
   \draw[arr] (chk) -- (out);
   \draw[arr] (out) -- (exc);
@@ -964,8 +963,7 @@ counterpart $C_{Npk}$, is the one used for approval.
   \draw[arr] (nt.west) -| node[lbl, above, pos=0.25] {yes} (nrm.north);
   \draw[arr] (nt.east) -| node[lbl, above, pos=0.25] {no} (fit.north);
   \draw[arr] (fit) -- (pct);
-  \draw[darr] (nrm) -- (rank);
-  \draw[arr] (rank.south) -- (rank.south |- use.north);
+  \draw[arr] (nrm.south) -- (nrm.south |- use.north);
   \draw[arr] (pct.south) -- (pct.south |- use.north);
   \draw[arr] (use) -- (rd);
   \node[note, anchor=west] at ($(nt.east -| fit.north)+(2.5mm,-3.5mm)$) {\code{force\_method}\\skips the test};
