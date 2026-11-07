@@ -1361,7 +1361,33 @@ $\alpha$ \cite{jy-risk}:
 For normal data the probability is $\Phi\bigl((C_0 - \Ppkhat)/\mathrm{SE}\bigr)$. The calibration only changes
 decisions near the threshold: clearly capable processes are still accepted and clearly incapable ones are
 still rejected \cite[Sec.~7]{jy-risk}. The failure probability and the cost-based choice of $\alpha$ are
-\eqref{eq:pfail} and \eqref{eq:alpha} in Appendix~\ref{app:formulas}.
+\eqref{eq:pfail} and \eqref{eq:alpha} in Appendix~\ref{app:formulas}. \figref{fig:riskflow} shows the steps.
+
+\begin{figure}[!htp]
+\centering
+\begin{tikzpicture}[node distance=4.5mm, fbox/.append style={minimum height=7mm, inner ysep=3pt}]
+  \node[gbox, minimum width=70mm] (in) {Study: estimate $\Ppkhat$ (or $\widehat C_{Npk}$), sample size $n$};
+  \node[fbox, minimum width=70mm, below=of in] (set) {\textbf{Risk setting}\\{\scriptsize \code{alpha}, or \code{cost\_ratio} $\lambda$ with $\alpha = 1/(1+\lambda)$; $k = z_{1-\alpha}$}};
+  \node[ask, below=of set] (nrm) {normal\\study?};
+  \node[fbox, minimum width=56mm, minimum height=14mm, below left=4.5mm and -4mm of nrm] (an) {\textbf{Analytic}\\{\scriptsize $\mathrm{SE}$ from \eqref{eq:se}}\\{\scriptsize $p_{\text{fail}} = \Phi\bigl((C_0 - \Ppkhat)/\mathrm{SE}\bigr)$}};
+  \node[fbox, minimum width=56mm, minimum height=14mm, below right=4.5mm and -4mm of nrm] (bs) {\textbf{Bootstrap}\\{\scriptsize resample, refit, recompute the index}\\{\scriptsize $p_{\text{fail}}$ = share of estimates below $C_0$}};
+  \node[ask, below=19mm of nrm] (ok) {$p_{\text{fail}} \le \alpha$?};
+  \node[fbox, draw=goodline, fill=good, minimum width=30mm, below left=7mm and 6mm of ok] (acc) {\textbf{ACCEPT}};
+  \node[fbox, draw=badline, fill=bad, minimum width=30mm, below right=7mm and 6mm of ok] (rej) {\textbf{REJECT}};
+  \draw[arr] (in) -- (set);
+  \draw[arr] (set) -- (nrm);
+  \draw[arr] (nrm.west) -| node[lbl, above, pos=0.25] {yes} (an.north);
+  \draw[arr] (nrm.east) -| node[lbl, above, pos=0.25] {no} (bs.north);
+  \draw[arr] (an.south) |- (ok.west);
+  \draw[arr] (bs.south) |- (ok.east);
+  \draw[arr] (ok.south) -- ++(0,-3mm) -| node[lbl, above, pos=0.25] {yes} (acc.north);
+  \draw[arr] (ok.south) -- ++(0,-3mm) -| node[lbl, above, pos=0.25] {no} (rej.north);
+  \node[note, anchor=west] at ($(nrm.east -| bs.north)+(2.5mm,-3.5mm)$) {\code{method=} overrides};
+\end{tikzpicture}
+\caption{The risk-calibrated decision of \code{risk\_decision}. For normal data the rule is equivalent to
+$\Ppkhat \ge C_0 + k\,\mathrm{SE}$ \eqref{eq:rule}; the bootstrap follows Appendix~B of the article
+\cite{jy-risk}. The plain threshold decision $\Ppkhat \ge C_0$ is reported alongside.}\label{fig:riskflow}
+\end{figure}
 
 The article shows that several familiar procedures are members of one family of margin rules
 $\Ppkhat \ge C_0 + k\,\mathrm{SE}$ that differ only in $k$ \cite[Sec.~4.3]{jy-risk} (\tabref{tab:family}). The
@@ -2200,7 +2226,34 @@ on three running statistics, the total weight $W_t$, the weighted mean $\bar x_{
 $Q_t$, which are updated once per subgroup (Algorithm~1 of the article; Appendix~\ref{app:f-monitor}). $\pi_t$ is
 estimated from $M$ draws of the posterior, with a Monte Carlo standard error of at most $1/(2\sqrt M)$
 \cite[Eqs.~25--28]{jy-monitor}. The total weight is bounded by $n/(1-\lambda_f)$, so the posterior uncertainty does
-not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5 subgroups \cite[Sec.~4.4]{jy-monitor}.
+not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5 subgroups \cite[Sec.~4.4]{jy-monitor}. \figref{fig:monflow} summarises one update.
+
+\begin{figure}[!htp]
+\centering
+\begin{tikzpicture}[node distance=4.5mm, fbox/.append style={minimum height=7mm, inner ysep=3pt}]
+  \node[gbox, minimum width=68mm] (in) {Limits, $q_0$, $\gamma_A$, $\gamma_R$, $t_{\min}$, $\lambda_f$, prior, $M$};
+  \node[fbox, minimum width=68mm, below=of in] (s1) {\textbf{1\enspace New subgroup $t$}\\{\scriptsize subgroup mean and sum of squares}};
+  \node[fbox, minimum width=68mm, below=of s1] (s2) {\textbf{2\enspace Discounted posterior update}\\{\scriptsize past weights $\times\,\lambda_f$; running $W_t$, $\bar x_{w,t}$, $Q_t$}\\{\scriptsize give $(\kappa_t, \mu_t, \alpha_t, \beta_t)$}};
+  \node[fbox, minimum width=68mm, below=of s2] (s3) {\textbf{3\enspace Posterior acceptability}\\{\scriptsize $M$ draws of $(\mu_t, \sigma_t)$; $\pi_t$ = share with $q(\theta_t) \ge q_0$}};
+  \node[ask, below=of s3] (a1) {$\pi_t \ge \gamma_A$?};
+  \node[ask, below=of a1] (a2) {$\pi_t \le \gamma_R$\\and $t \ge t_{\min}$?};
+  \node[fbox, draw=goodline, fill=good, minimum width=28mm, anchor=west] (cont) at ($(a1.east)+(12mm,0)$) {\textbf{continue}};
+  \node[fbox, draw=badline, fill=bad, minimum width=28mm, anchor=west] (int) at ($(a2.east)+(12mm,0)$) {\textbf{intervene}, $\tau = t$};
+  \node[fbox, draw=warnline, fill=warn, minimum width=28mm, below=of a2] (mon) {\textbf{monitor}};
+  \draw[arr] (in) -- (s1);
+  \draw[arr] (s1) -- (s2);
+  \draw[arr] (s2) -- (s3);
+  \draw[arr] (s3) -- (a1);
+  \draw[arr] (a1.east) -- node[lbl, above] {yes} (cont.west);
+  \draw[arr] (a1) -- node[lbl, left] {no} (a2);
+  \draw[arr] (a2.east) -- node[lbl, above] {yes} (int.west);
+  \draw[arr] (a2) -- node[lbl, left] {no} (mon);
+  \draw[arr] (cont.north) |- node[lbl, right, align=left, pos=0.3] {next\\subgroup} (s1.east);
+  \draw[arr] (mon.west) -- ++(-24mm,0) |- node[lbl, left, align=right, pos=0.25] {next\\subgroup} (s1.west);
+\end{tikzpicture}
+\caption{One monitoring update of \code{monitor\_study}, repeated for every completed subgroup (Algorithm~1 of the
+monitoring article \cite{jy-monitor}). The zones follow \eqref{eq:pi} and Section~\ref{sec:sboam}.}\label{fig:monflow}
+\end{figure}
 
 \paragraph{Prior.} The simulation study of the article uses $(\mu_0, \kappa_0, \alpha_0, \beta_0) = (0, 10^{-3}, 2, 1)$.
 For the industrial replay it uses a \emph{tolerance-aware} prior: $\mu_0$ is the nominal, $\kappa_0 = 10^{-3}$,

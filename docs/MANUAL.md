@@ -617,7 +617,11 @@ The process is accepted when the probability that its true capability lies below
 \widehat{P}_{pk} \;\ge\; C_0 + k\cdot\mathrm{SE}(\widehat{P}_{pk}), \qquad k = z_{1-\alpha}.
 ```
 
-For normal data the probability is $\Phi\bigl((C_0 - \widehat{P}_{pk})/\mathrm{SE}\bigr)$. The calibration only changes decisions near the threshold: clearly capable processes are still accepted and clearly incapable ones are still rejected \[2, Sec. 7\]. The failure probability and the cost-based choice of $\alpha$ are (A.21) and (A.22) in Appendix A.
+For normal data the probability is $\Phi\bigl((C_0 - \widehat{P}_{pk})/\mathrm{SE}\bigr)$. The calibration only changes decisions near the threshold: clearly capable processes are still accepted and clearly incapable ones are still rejected \[2, Sec. 7\]. The failure probability and the cost-based choice of $\alpha$ are (A.21) and (A.22) in Appendix A. Figure 6.2 shows the steps.
+
+![Figure 6.2](figures/manual/diagram-08.png)
+
+**Figure 6.2.** The risk-calibrated decision of `risk_decision`. For normal data the rule is equivalent to $\widehat{P}_{pk} \ge C_0 + k\,\mathrm{SE}$ (6.2); the bootstrap follows Appendix B of the article \[2\]. The plain threshold decision $\widehat{P}_{pk} \ge C_0$ is reported alongside.
 
 The article shows that several familiar procedures are members of one family of margin rules $\widehat{P}_{pk} \ge C_0 + k\,\mathrm{SE}$ that differ only in $k$ \[2, Sec. 4.3\] (Table 6.1). The `RiskDecision` reports the plain threshold decision next to the calibrated one, and `expected_loss` gives the expected operational loss that the article uses to compare the rules \[2, Sec. 3.4\].
 
@@ -652,17 +656,17 @@ The article leaves $\lambda$ to the application, as a relative rather than a mon
 
 ### 6.4 How many parts are needed
 
-Because the standard error shrinks with $\sqrt n$, the estimate needed for acceptance falls as more parts are measured (Figure 6.2). The curves solve $\widehat C - C_0 = k\,\mathrm{SE}(\widehat C)$ for $\widehat C$; they give the smallest estimate that is accepted at each sample size.
+Because the standard error shrinks with $\sqrt n$, the estimate needed for acceptance falls as more parts are measured (Figure 6.3). The curves solve $\widehat C - C_0 = k\,\mathrm{SE}(\widehat C)$ for $\widehat C$; they give the smallest estimate that is accepted at each sample size.
 
-![Figure 6.2](figures/manual/diagram-08.png)
+![Figure 6.3](figures/manual/diagram-09.png)
 
-**Figure 6.2.** Smallest $P_{pk}$ estimate that is accepted, as a function of sample size, for $C_0 = 1.33$ (analytic method). With 32 parts and $\lambda = 19$, an estimate of about 1.69 is needed.
+**Figure 6.3.** Smallest $P_{pk}$ estimate that is accepted, as a function of sample size, for $C_0 = 1.33$ (analytic method). With 32 parts and $\lambda = 19$, an estimate of about 1.69 is needed.
 
 > **Key point.** The *Required* line of the decision report is $C_0 + k\cdot\mathrm{SE}$ evaluated at the current estimate (1.674 in the example). Since the standard error grows with the estimate, the smallest estimate that is actually accepted is slightly higher (1.69). Both say the same thing: near the threshold, either accept more risk or measure more parts.
 
 ### 6.5 Planning a study
 
-Figure 6.2 answers the question after the study. Before the study the question is the reverse: if the process is as good as we believe, how many parts must be measured so that it is approved with reasonable probability? `sample_size` answers it for an assumed true capability and a wanted probability of approval (the power of the study):
+Figure 6.3 answers the question after the study. Before the study the question is the reverse: if the process is as good as we believe, how many parts must be measured so that it is approved with reasonable probability? `sample_size` answers it for an assumed true capability and a wanted probability of approval (the power of the study):
 
 ```python
 from uccap import sample_size
@@ -682,11 +686,11 @@ Sample-size plan (risk-calibrated approval)
      Smallest accepted Cpk  1.539
 ```
 
-A process with a true $C_{pk}$ of 1.67 is approved in only 39 % of studies with 30 parts; 80 parts are needed for an 80 % chance (Figure 6.3). For a true $C_{pk}$ of 2.0, 25 parts suffice; for 1.5, close to $C_0$, almost 300 are needed. When the plan asks for more parts than can be measured, the honest options are to accept more risk (a smaller $\lambda$) or to improve the process first. From the command line, `uccap plan 1.67 --cost-ratio 19` gives the same plan (Section 8.3).
+A process with a true $C_{pk}$ of 1.67 is approved in only 39 % of studies with 30 parts; 80 parts are needed for an 80 % chance (Figure 6.4). For a true $C_{pk}$ of 2.0, 25 parts suffice; for 1.5, close to $C_0$, almost 300 are needed. When the plan asks for more parts than can be measured, the honest options are to accept more risk (a smaller $\lambda$) or to improve the process first. From the command line, `uccap plan 1.67 --cost-ratio 19` gives the same plan (Section 8.3).
 
-![Figure 6.3](figures/manual/diagram-09.png)
+![Figure 6.4](figures/manual/diagram-10.png)
 
-**Figure 6.3.** Probability that a study is approved, for $C_0 = 1.33$ and $\lambda = 19$, as a function of the number of parts. Dots: the sample size `sample_size` returns for 80 % power.
+**Figure 6.4.** Probability that a study is approved, for $C_0 = 1.33$ and $\lambda = 19$, as a function of the number of parts. Dots: the sample size `sample_size` returns for 80 % power.
 
 **Table 6.3.** Parts needed for $C_0 = 1.33$, by assumed true $C_{pk}$, cost ratio and wanted probability of approval.
 
@@ -704,7 +708,7 @@ A process with a true $C_{pk}$ of 1.67 is approved in only 39 % of studies wit
 
 - The plan assumes normal data. For skewed characteristics, whose decisions use the bootstrap, treat it as a lower bound. The result is never below 8, the smallest sample uccap analyses.
 
-- `min_accepted(n, ...)` returns the smallest accepted estimate for $n$ parts (the curves of Figure 6.2); `acceptance_probability(cpk, n, ...)` the probability of approval; `uccap.plot.planning_plot()` draws Figure 6.3 for any settings.
+- `min_accepted(n, ...)` returns the smallest accepted estimate for $n$ parts (the curves of Figure 6.3); `acceptance_probability(cpk, n, ...)` the probability of approval; `uccap.plot.planning_plot()` draws Figure 6.4 for any settings.
 
 ### 6.6 Analytic and bootstrap probability
 
@@ -740,7 +744,7 @@ z = \frac{1.33 - \widehat{P}_{pk}}{\mathrm{SE}(\widehat{P}_{pk})}, \qquad \sigma
 
 $z$ is the uncertainty-adjusted distance to the threshold and enters with a fixed weight of one, so the model can never ignore the statistics. $f$ is a neural network that shifts the anchor using the shape of the data and the position of the tolerance (Figure 7.1). Without the correction the model reduces to $\sigma(z)$, reported as `p_stat`.
 
-![Figure 7.1](figures/manual/diagram-10.png)
+![Figure 7.1](figures/manual/diagram-11.png)
 
 **Figure 7.1.** Structure of UC-Cap V4.2. The statistical anchor and the learned correction are added on the logit scale. The network is the final model of the article (Table 10 there). Its trained weights and preprocessing parameters are not included in this release (Section 7.2).
 
@@ -815,7 +819,7 @@ In the HTML and Excel output the levels are coloured green, amber and red, and s
 
 As in the article, the risk score is $100\,\pi$ and the level follows from two thresholds (Figure 7.3) \[3, Eq. (22)\]. The values 0.40 and 0.70 are the prespecified settings of the article’s illustrative configuration, fixed before evaluation; they are not plant-specific optima and can be replaced \[3, Sec. 5.3\].
 
-![Figure 7.3](figures/manual/diagram-11.png)
+![Figure 7.3](figures/manual/diagram-12.png)
 
 **Figure 7.3.** Risk levels with the article’s default bands: Low ($\pi < 0.40$), Medium ($0.40 \le \pi < 0.70$), High ($\pi \ge 0.70$), and the action of each level \[3, Eq. (26)\].
 
@@ -907,7 +911,7 @@ In addition:
 
 ### 8.1 The batch pipeline
 
-![Figure 8.1](figures/manual/diagram-12.png)
+![Figure 8.1](figures/manual/diagram-13.png)
 
 **Figure 8.1.** The batch pipeline. A dimension that cannot be analysed gets an ERROR row; the others are unaffected.
 
@@ -954,7 +958,7 @@ uccap --cite                                     # BibTeX of the articles
 
 `uccap monitor` runs `batch_monitor` on a file of production measurements (Chapter 9).
 
-`uccap plan` plans the sample size (Section 6.5) for one or more assumed true capabilities. Its options are `--c0`, `--alpha` or `--cost-ratio` as above, `--power` (the wanted probability of approval, default 0.8), `--parts` (a planned number of parts) and `--plot` (the acceptance curves of Figure 6.3 as PNG; needs matplotlib):
+`uccap plan` plans the sample size (Section 6.5) for one or more assumed true capabilities. Its options are `--c0`, `--alpha` or `--cost-ratio` as above, `--power` (the wanted probability of approval, default 0.8), `--parts` (a planned number of parts) and `--plot` (the acceptance curves of Figure 6.4 as PNG; needs matplotlib):
 
 ```text
 $ uccap plan 1.5 1.67 2.0 --cost-ratio 19 --parts 32 --plot plan.png
@@ -1118,7 +1122,11 @@ and places the process in one of three zones \[4, Eqs. 20–21\]:
 The first subgroup in the intervene zone is the posterior intervention time $\tau = \inf\{t \ge t_{\min} :
 \pi_t \le \gamma_R\}$. The minimum number of subgroups $t_{\min}$ keeps the rule from acting on very little evidence. $\gamma_R$ alone determines when intervention is triggered; $\gamma_A$ only separates continued operation from the monitoring zone \[4, Sec. 4.3\].
 
-**Posterior update.** Older subgroups are discounted with the forgetting factor $\lambda_f$: an observation from subgroup $\tau$ has weight $\lambda_f^{\,t-\tau}$ at subgroup $t$ \[4, Eq. 22\]. The posterior is the Normal–Inverse-Gamma prior $(\mu_0, \kappa_0, \alpha_0, \beta_0)$ multiplied by this discounted likelihood. It depends on three running statistics, the total weight $W_t$, the weighted mean $\bar x_{w,t}$ and the weighted sum of squares $Q_t$, which are updated once per subgroup (Algorithm 1 of the article; Appendix A.8). $\pi_t$ is estimated from $M$ draws of the posterior, with a Monte Carlo standard error of at most $1/(2\sqrt M)$ \[4, Eqs. 25–28\]. The total weight is bounded by $n/(1-\lambda_f)$, so the posterior uncertainty does not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5 subgroups \[4, Sec. 4.4\].
+**Posterior update.** Older subgroups are discounted with the forgetting factor $\lambda_f$: an observation from subgroup $\tau$ has weight $\lambda_f^{\,t-\tau}$ at subgroup $t$ \[4, Eq. 22\]. The posterior is the Normal–Inverse-Gamma prior $(\mu_0, \kappa_0, \alpha_0, \beta_0)$ multiplied by this discounted likelihood. It depends on three running statistics, the total weight $W_t$, the weighted mean $\bar x_{w,t}$ and the weighted sum of squares $Q_t$, which are updated once per subgroup (Algorithm 1 of the article; Appendix A.8). $\pi_t$ is estimated from $M$ draws of the posterior, with a Monte Carlo standard error of at most $1/(2\sqrt M)$ \[4, Eqs. 25–28\]. The total weight is bounded by $n/(1-\lambda_f)$, so the posterior uncertainty does not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5 subgroups \[4, Sec. 4.4\]. Figure 9.1 summarises one update.
+
+![Figure 9.1](figures/manual/diagram-14.png)
+
+**Figure 9.1.** One monitoring update of `monitor_study`, repeated for every completed subgroup (Algorithm 1 of the monitoring article \[4\]). The zones follow (9.2) and Section 9.2.
 
 **Prior.** The simulation study of the article uses $(\mu_0, \kappa_0, \alpha_0, \beta_0) = (0, 10^{-3}, 2, 1)$. For the industrial replay it uses a *tolerance-aware* prior: $\mu_0$ is the nominal, $\kappa_0 = 10^{-3}$, $\alpha_0 = 2$ and $\beta_0 = s_0^2(\alpha_0 - 1)$ with $s_0 = (\mathrm{USL}-\mathrm{LSL})/8$, so that dimensions with very different tolerances start from comparable prior uncertainty while the prior stays weak \[4, Sec. 4.4\]. The tolerance-aware prior is the default of uccap.
 
@@ -1153,9 +1161,9 @@ Operational acceptability monitoring
         Subgroups per zone  continue 66, monitor 5, intervene 49
 ```
 
-![Figure 9.1](figures/monitor_trajectory.png)
+![Figure 9.2](figures/monitor_trajectory.png)
 
-**Figure 9.1.** Monitoring of one characteristic. Top: subgroup means and the posterior mean. Bottom: $\pi_t$ with the continue band above $\gamma_A$, the intervene band below $\gamma_R$, $t_{\min}$ and the first intervention.
+**Figure 9.2.** Monitoring of one characteristic. Top: subgroup means and the posterior mean. Bottom: $\pi_t$ with the continue band above $\gamma_A$, the intervene band below $\gamma_R$, $t_{\min}$ and the first intervention.
 
 `r.frame` holds one row per subgroup: `t`, `n`, the subgroup `mean` and `sd`, the posterior means `mu_post` and `sigma_post`, the discounted evidence `weight` ($W_t$), `pi`, `q_pred` and `zone`. `q_pred` is the average of $q$ over the posterior draws, the posterior predictive conformance $\bar q_t$ of the article; it is shown for reference only. The two quantities can differ substantially under finite samples, and the zones use $\pi_t$ \[4, Eq. 19, Sec. 5.4\].
 
@@ -1222,9 +1230,9 @@ dimension  Ppk_normal  pi_final  first_intervention      zone                   
 | no intervention-zone entry | $\min_{t \ge t_{\min}} \pi_t > \gamma_R$                            | green  |
 | borderline final           | the rest ($\gamma_R < \pi_T < \gamma_A$)                            | amber  |
 
-![Figure 9.2](figures/monitor_overview.png)
+![Figure 9.3](figures/monitor_overview.png)
 
-**Figure 9.2.** Overview of 40 simulated dimensions (tolerance $10.00 \pm 0.10$; stable, or with a persistent shift, a transient shift or a growing spread from a random subgroup; `examples/plots_example.py`): the final $\pi$ with $\gamma_R$ and $\gamma_A$, the empirical capability against the final $\pi$ by category, and the first intervention times.
+**Figure 9.3.** Overview of 40 simulated dimensions (tolerance $10.00 \pm 0.10$; stable, or with a persistent shift, a transient shift or a growing spread from a random subgroup; `examples/plots_example.py`): the final $\pi$ with $\gamma_R$ and $\gamma_A$, the empirical capability against the final $\pi$ by category, and the first intervention times.
 
 The HTML table and the Excel workbook use the colours of Chapter 8: `zone`, `category` and the $\pi$ columns green, amber or red. A *How decided* section states the rules with the settings used; the workbook also has a *Reports* sheet and a *Trajectories* sheet with every subgroup of every dimension (`result.trajectories()` returns the same table). A dimension without limits, or with a lower limit only (the tolerance-aware prior needs a tolerance width), gets the zone `n/a` and the reason in `warnings`; the others are unaffected. In a large file, the article notes that a first intervention at $t_{\min}$ usually means that $\pi$ was already low at the start of the record, not that a change began there \[4, Sec. 5.7\].
 
@@ -1357,7 +1365,7 @@ Lines of the approval report.
 | Standard error    | Equation (6.1) at the estimate. With the bootstrap method it is marked “analytic, for reference”: the decision then uses the bootstrap probability.                                                     |
 | P(true \< C0)     | Probability that the true capability is below $C_0$, with the method (analytic or bootstrap).                                                                                                           |
 | Required estimate | $C_0 + k\cdot\mathrm{SE}$ with the standard error at this estimate, the form of the article’s rule \[2, Eq. (29)\]. Analytic; with the bootstrap method it is for reference only.                       |
-| Smallest accepted | The estimate that just passes with this $n$ (analytic method). It is slightly above the required estimate because the standard error grows with the estimate (Figure 6.2); both give the same decision. |
+| Smallest accepted | The estimate that just passes with this $n$ (analytic method). It is slightly above the required estimate because the standard error grows with the estimate (Figure 6.3); both give the same decision. |
 | Threshold rule    | The plain decision $\widehat C \ge C_0$, for comparison.                                                                                                                                                |
 | Risk-calibrated   | The decision of uccap: ACCEPT if $P \le \alpha$.                                                                                                                                                        |
 | Note              | Shown when the two rules disagree. $C_0$ is unchanged; the note says that the sample does not give enough evidence at the chosen risk.                                                                  |
@@ -1458,7 +1466,7 @@ The upper panel shows how the probability of Chapter 7 is built on the logit sca
 
 ### 11.8 Monitoring
 
-`MonitorResult.plot()` draws the subgroup means and the trajectory of $\pi_t$ with its zones (Figure 9.1); `MonitorBatchResult.plot()` the overview of many dimensions (Figure 9.2). Both are described in Chapter 9.
+`MonitorResult.plot()` draws the subgroup means and the trajectory of $\pi_t$ with its zones (Figure 9.2); `MonitorBatchResult.plot()` the overview of many dimensions (Figure 9.3). Both are described in Chapter 9.
 
 ### 11.9 Individual plot functions
 
@@ -1735,7 +1743,7 @@ Operational acceptability monitoring of one characteristic (Chapter 9); the sett
 | `zone`, `intervention`         | Zone of the last subgroup; first subgroup in the intervene zone, or `None`.                              |
 | `category`                     | Monitoring category (Table 9.2).                                                                         |
 | `settings`, `prior`, `notes`   | Settings used, the `MonitorPrior`, notes of the report.                                                  |
-| `report()`, `plot(title=None)` | Text report; trajectory figure (Figure 9.1).                                                             |
+| `report()`, `plot(title=None)` | Text report; trajectory figure (Figure 9.2).                                                             |
 
 ### 13.7 batch_monitor
 
@@ -1754,7 +1762,7 @@ Runs `monitor_study` for every dimension; `data` and `specs` as in `batch_study`
 | `results`, `errors`, `settings`                                                          | `MonitorResult` and error message by dimension; the settings used.                                                                                                                            |
 | `table(columns=None, rename=None, decimals=4)`                                           | Selected and renamed columns, as for `BatchResult`.                                                                                                                                           |
 | `trajectories(decimals=4)`                                                               | Every subgroup of every dimension in one table.                                                                                                                                               |
-| `report(dimension)`, `plot()`                                                            | Report of one dimension; overview figure (Figure 9.2).                                                                                                                                        |
+| `report(dimension)`, `plot()`                                                            | Report of one dimension; overview figure (Figure 9.3).                                                                                                                                        |
 | `to_html(path=None, columns=None, rename=None, rules=None, title=...)`                   | Coloured HTML page with how the zones are set.                                                                                                                                                |
 | `to_excel(path, columns=None, rename=None, rules=None, details=True, trajectories=True)` | Workbook: Results, How decided, Reports, Trajectories.                                                                                                                                        |
 
@@ -2097,7 +2105,7 @@ No. The requirement $C_0$ stays as it is. The usual rule $\widehat C \ge C_0$ co
 
 #### Q. Why does a process with $P_{pk} = 1.5$ not pass the risk-calibrated rule?
 
-The estimate is above $C_0 = 1.33$, so the usual rule is met. With 32 parts its standard error (6.1) is about 0.20, and the probability that the true $P_{pk}$ is below 1.33 (A.21) is about 0.19. At a tolerated risk of $\alpha = 0.05$ ($\lambda = 19$) that is more than accepted, and an estimate of about 1.69 would be needed at this sample size (Figure 6.2). The calibration constant $k$ links the decision to the operational priorities \[2, Sec. 7\]: if a false approval costs less, a smaller $\lambda$ applies (A.22); otherwise more parts reduce the uncertainty (Section 6.5).
+The estimate is above $C_0 = 1.33$, so the usual rule is met. With 32 parts its standard error (6.1) is about 0.20, and the probability that the true $P_{pk}$ is below 1.33 (A.21) is about 0.19. At a tolerated risk of $\alpha = 0.05$ ($\lambda = 19$) that is more than accepted, and an estimate of about 1.69 would be needed at this sample size (Figure 6.3). The calibration constant $k$ links the decision to the operational priorities \[2, Sec. 7\]: if a false approval costs less, a smaller $\lambda$ applies (A.22); otherwise more parts reduce the uncertainty (Section 6.5).
 
 #### Q. The normality test passes but another distribution has a lower AICc. Which is used?
 
