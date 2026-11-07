@@ -1420,7 +1420,7 @@ Two kinds of horizontal lines appear in the figures, and they answer different q
 
 **Figure 11.3.** Stability of the same study: individuals chart with UCL and LCL, and moving range chart. No point is outside the limits.
 
-For the outlier and stability figures, `show_data=True` writes each value next to its point, and in the outlier figure also overlays all values on the box plot (Figure 11.4). It is off by default, because with many points the labels crowd the chart. On the command line the same switch is `--show-values` .
+For the outlier and stability figures, `show_data=True` writes each value next to its point, and in the outlier figure also overlays all values on the box plot (Figure 11.4). It is off by default, because with many points the labels crowd the chart. The values are written with as many decimals as the data have, at most three. On the command line the same switch is `--show-values` .
 
 ```python
 study.plot(kind="outliers", show_data=True)
@@ -1856,17 +1856,19 @@ The following details are not prescribed by the articles. They are documented so
 
 4.  The Anderson–Darling p-value uses the approximation of D’Agostino and Stephens \[12\].
 
-5.  Approval uses the overall sigma ($P_{pk}$), matching the estimator and standard error of the risk-calibration article.
+5.  The minimum of 8 usable values is a technical lower limit, not a recommended sample size: it is the smallest sample for which the Anderson–Darling test of R’s `nortest` package, the reference used in validation, gives a result, and it leaves at least 7 moving ranges for the within sigma. The articles work with larger samples, for example 32 parts in the case study of the workflow article and 20 measurements per dimension in the hybrid article; uccap warns below 20.
 
-6.  The distribution library is aligned with Minitab’s Individual Distribution Identification and with JMP; Johnson families are fitted by maximum likelihood.
+6.  Approval uses the overall sigma ($P_{pk}$), matching the estimator and standard error of the risk-calibration article.
 
-7.  The bootstrap for three-parameter families keeps the fitted threshold fixed.
+7.  The distribution library is aligned with Minitab’s Individual Distribution Identification and with JMP; Johnson families are fitted by maximum likelihood.
 
-8.  Data-quality warnings and their thresholds are listed in Chapter 12.
+8.  The bootstrap for three-parameter families keeps the fitted threshold fixed.
 
-9.  UC-Cap inputs: the input definitions were checked against the training table of the article. The $P_{pk}$/$P_p$ rule, distances, anchor, margin and normality agree on all 10,000 training rows. Two inputs are approximations: for non-normal samples the best-fit label is chosen by uccap’s own rule (lowest AICc among lognormal, Weibull, gamma and logistic, kept if its goodness-of-fit test passes, otherwise “empirical”), because the article does not state the rule of the training table; and $\mathrm{SE}(P_{pk})$ uses 200 bootstrap resamples with a fixed seed.
+9.  Data-quality warnings and their thresholds are listed in Chapter 12.
 
-10. Monitoring: the posterior draws use the seed `rng`; the report’s normality note tests within-subgroup (Helmert) contrasts; one-sided tolerances follow the conventions of Chapter 9.
+10. UC-Cap inputs: the input definitions were checked against the training table of the article. The $P_{pk}$/$P_p$ rule, distances, anchor, margin and normality agree on all 10,000 training rows. Two inputs are approximations: for non-normal samples the best-fit label is chosen by uccap’s own rule (lowest AICc among lognormal, Weibull, gamma and logistic, kept if its goodness-of-fit test passes, otherwise “empirical”), because the article does not state the rule of the training table; and $\mathrm{SE}(P_{pk})$ uses 200 bootstrap resamples with a fixed seed.
+
+11. Monitoring: the posterior draws use the seed `rng`; the report’s normality note tests within-subgroup (Helmert) contrasts; one-sided tolerances follow the conventions of Chapter 9.
 
 ## Appendix A. Formula summary
 

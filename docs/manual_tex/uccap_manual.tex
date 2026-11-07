@@ -167,7 +167,7 @@
   gbox/.style={fbox, draw=rule, fill=codebg, text=ink},
   ask/.style={diamond, aspect=2.1, draw=accent, line width=0.6pt, fill=white, align=center,
               font=\sffamily\scriptsize, inner sep=1pt},
-  arr/.style={-{Stealth[length=2mm]}, line width=0.6pt, color=accent},
+  arr/.style={-{Stealth[length=1.7mm, width=1.5mm]}, line width=0.6pt, color=accent, line cap=round, line join=round},
   darr/.style={arr, dashed},
   lbl/.style={font=\sffamily\scriptsize, color=muted, inner sep=2pt},
   note/.style={font=\sffamily\scriptsize, color=muted, align=left},
@@ -194,7 +194,8 @@
 \hyphenation{Ander-son Dar-ling}
 
 % parameter tables for the API reference
-\newenvironment{params}{\par\small\noindent\tabularx{\textwidth}{@{}P{34mm}P{20mm}L@{}}\toprule
+\newcommand{\paramdefw}{20mm}% width of the Default column; change in a group for one table
+\newenvironment{params}[1][34mm]{\par\small\noindent\tabularx{\textwidth}{@{}P{#1}P{\paramdefw}L@{}}\toprule
   \thead{Parameter} & \thead{Default} & \thead{Description}\\\midrule}{\bottomrule\endtabularx\par\medskip}
 \newenvironment{attrs}[1][34mm]{\par\small\noindent\tabularx{\textwidth}{@{}P{#1}L@{}}\toprule
   \thead{Attribute or method} & \thead{Description}\\\midrule}{\bottomrule\endtabularx\par\medskip}
@@ -266,7 +267,7 @@ preprints of the same work.
 \begin{table}[!htp]
 \caption{Articles implemented in \pkg{}.}\label{tab:papers}
 \small
-\begin{tabularx}{\textwidth}{@{}P{14mm}L p{27mm}@{}}
+\begin{tabularx}{\textwidth}{@{}P{14mm}L p{31mm}@{}}
 \toprule
 \thead{Module} & \thead{Article (Int.\ J.\ Adv.\ Manuf.\ Technol., 2026)} & \thead{Free preprint}\\
 \midrule
@@ -294,7 +295,7 @@ interpret a result; proofs and simulation studies are left to the articles.
 
 \begin{table}[!htp]
 \small
-\begin{tabularx}{\textwidth}{@{}P{32mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{36mm}L@{}}
 \toprule
 \thead{Reader} & \thead{Suggested route}\\
 \midrule
@@ -370,7 +371,7 @@ manual treats each one.
 \begin{table}[!htp]
 \caption{Sources of uncertainty in a capability decision and how \pkg{} handles them.}\label{tab:uncertainty}
 \small
-\begin{tabularx}{\textwidth}{@{}P{21mm}LP{30mm}@{}}
+\begin{tabularx}{\textwidth}{@{}P{23mm}LP{28mm}@{}}
 \toprule
 \thead{Source} & \thead{How \pkg{} quantifies or controls it} & \thead{Output}\\
 \midrule
@@ -427,28 +428,27 @@ table and collects the results.
   \node[fbox, minimum width=34mm] (hy) at (90,-36) {\code{hybrid\_risk}\\[-1pt]{\scriptsize\color{muted}hybrid: UC-Cap score}};
   % batch frame around the three analysis steps
   \begin{scope}[on background layer]
-    \node[draw=accent, dashed, line width=0.5pt, rounded corners=3pt, fit=(wf)(rk)(hy), inner xsep=5mm,
+    \node[draw=accent, dashed, line width=0.5pt, rounded corners=3pt, fit=(wf)(rk)(hy), inner xsep=8mm,
           inner ysep=3mm] (bt) {};
   \end{scope}
   \node[lbl, anchor=north] at (bt.south) {\code{batch\_study}: one row per dimension};
   % outputs
   \foreach \i/\y/\t in {1/0/Text reports\\\code{.report()}, 2/-12/Plots\\\code{.plot()},
                        3/-24/Coloured table\\\code{.to\_html()}, 4/-36/Workbook\\\code{.to\_excel()}}
-    \node[gbox, minimum width=30mm] (o\i) at (140,\y) {\t};
+    \node[gbox, minimum width=30mm] (o\i) at (142.5,\y) {\t};
   % column headings, all on one line above the frame
-  \foreach \x/\t in {13/INPUT, 47/READ, 90/ANALYSE, 140/OUTPUT}
+  \foreach \x/\t in {13/INPUT, 47/READ, 90/ANALYSE, 142.5/OUTPUT}
     \node[lbl, font=\sffamily\scriptsize\bfseries, anchor=south] at (\x, 10) {\t};
   % arrows: horizontal and vertical segments only
-  \draw[arr] (f1.east) -- (30,0) |- ([yshift=2mm]rd.west);
+  \draw[accent, line width=0.6pt, line join=round] (f1.east) -- (30,0) -- (30,-36) -- (f3.east);
   \draw[arr] (f2.east) -- (rd.west);
-  \draw[arr] (f3.east) -- (30,-36) |- ([yshift=-2mm]rd.west);
   \draw[arr] (rd.east) -- (64,-18) |- (wf.west);
   \draw[arr] (wf) -- (rk);
-  \draw[arr] (wf.east) -- (110,0) |- (hy.east);
+  \draw[arr] (wf.east) -- (114,0) |- (hy.east);
   \draw[darr] (30,-36) -- (hy.west);
-  \draw[arr] (bt.east) -- (118,-18);
-  \draw[accent, line width=0.6pt] (118,0) -- (118,-36);
-  \foreach \o in {o1, o2, o3, o4} \draw[arr] (118,0 |- \o.west) -- (\o.west);
+  \draw[arr] (bt.east) -- (121,-18);
+  \draw[accent, line width=0.6pt] (121,0) -- (121,-36);
+  \foreach \o in {o1, o2, o3, o4} \draw[arr] (121,0 |- \o.west) -- (\o.west);
 \end{tikzpicture}
 \caption{Architecture of \pkg{}. Dark boxes are the two steps of every approval; the dashed frame is
 what \code{batch\_study} repeats for each dimension (the UC-Cap score included). A single array can also be
@@ -463,7 +463,7 @@ Monitoring after approval is a separate path: \code{monitor\_study} (one charact
 \begin{table}[H]
 \caption{Modules of the package.}\label{tab:modules}
 \small
-\begin{tabularx}{\textwidth}{@{}P{26mm}P{37mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{26mm}P{41mm}L@{}}
 \toprule
 \thead{Module} & \thead{Main entry point} & \thead{Purpose}\\
 \midrule
@@ -941,32 +941,32 @@ counterpart $C_{Npk}$, is the one used for approval.
 
 \begin{figure}[!htp]
 \centering
-\begin{tikzpicture}[node distance=3.5mm, fbox/.append style={minimum height=7.5mm}]
+\begin{tikzpicture}[node distance=6mm, fbox/.append style={minimum height=7.5mm}]
   \node[gbox, minimum width=60mm] (in) {Measurements in production order, LSL, USL, target};
   \node[fbox, minimum width=60mm, below=of in] (chk) {\textbf{1\enspace Data checks}\\{\scriptsize drop missing and unreadable entries; $n \ge 8$; not constant}};
   \node[fbox, minimum width=60mm, below=of chk] (out) {\textbf{2\enspace Outlier screen}\\{\scriptsize IQR fences (normal) or adjusted boxplot (skewed); flag only}};
-  \node[ask, below=3.5mm of out] (exc) {excluded\\on request?};
-  \node[fbox, minimum width=60mm, below=3.5mm of exc] (sig) {\textbf{3\enspace Sigma estimates}\\{\scriptsize within (moving range or pooled) and overall (sample SD)}};
-  \node[ask, below=3.5mm of sig] (nt) {\textbf{4}\enspace normality test\\$p \ge \alpha$?};
-  \node[fbox, minimum width=54mm, minimum height=14.5mm, below left=5mm and -4mm of nt] (nrm) {\textbf{5a\enspace Normal indices}\\{\scriptsize $C_p, C_{pk}, C_{pm}, C_{pmk}$ (within)}\\{\scriptsize $P_p, P_{pk}$ (overall)}};
-  \node[fbox, minimum width=54mm, minimum height=14.5mm, below right=5mm and -4mm of nt] (fit) {\textbf{5b\enspace Best fit by AICc}\\{\scriptsize 10 candidate families}};
-  \node[fbox, minimum width=54mm, minimum height=10mm, below=3.5mm of fit] (pct) {\textbf{6\enspace Percentile indices}\\{\scriptsize $C_{Np}, C_{Npk}$ from $P_{0.135}, P_{50}, P_{99.865}$}};
-  \node[gbox, minimum width=54mm, minimum height=10mm, below=3.5mm of nrm] (rank) {AICc ranking printed\\for reference only};
-  \node[dbox, minimum width=60mm, below=34mm of nt] (use) {Capability used for approval: $\Ppkhat$ or $\widehat C_{Npk}$};
-  \node[wbox, minimum width=60mm, below=3.5mm of use] (rd) {\code{risk\_decision} (\chapref{ch:risk})};
+  \node[ask, below=6mm of out] (exc) {excluded\\on request?};
+  \node[fbox, minimum width=60mm, below=6mm of exc] (sig) {\textbf{3\enspace Sigma estimates}\\{\scriptsize within (moving range or pooled) and overall (sample SD)}};
+  \node[ask, below=6mm of sig] (nt) {\textbf{4}\enspace normality test\\$p \ge \alpha$?};
+  \node[fbox, minimum width=54mm, minimum height=14.5mm, below left=6mm and -4mm of nt] (nrm) {\textbf{5a\enspace Normal indices}\\{\scriptsize $C_p, C_{pk}, C_{pm}, C_{pmk}$ (within)}\\{\scriptsize $P_p, P_{pk}$ (overall)}};
+  \node[fbox, minimum width=54mm, minimum height=14.5mm, below right=6mm and -4mm of nt] (fit) {\textbf{5b\enspace Best fit by AICc}\\{\scriptsize 10 candidate families}};
+  \node[fbox, minimum width=54mm, minimum height=10mm, below=6mm of fit] (pct) {\textbf{6\enspace Percentile indices}\\{\scriptsize $C_{Np}, C_{Npk}$ from $P_{0.135}, P_{50}, P_{99.865}$}};
+  \node[gbox, minimum width=54mm, minimum height=10mm, below=6mm of nrm] (rank) {AICc ranking printed\\for reference only};
+  \node[dbox, minimum width=86mm, anchor=north] (use) at ($(rank.south -| nt.south)+(0,-7mm)$) {Capability used for approval: $\Ppkhat$ or $\widehat C_{Npk}$};
+  \node[wbox, minimum width=60mm, below=6mm of use] (rd) {\code{risk\_decision} (\chapref{ch:risk})};
   \draw[arr] (in) -- (chk);
   \draw[arr] (chk) -- (out);
   \draw[arr] (out) -- (exc);
   \draw[arr] (exc) -- node[lbl, left] {no} (sig);
-  \draw[arr] (exc.east) -- node[lbl, above, pos=0.6] {yes} ++(18mm,0) node[note, right, text width=30mm] {remove the named or\\flagged points;\\report lists them} ;
-  \draw[arr] ($(exc.east)+(18mm,0)$) |- ($(sig.north)+(0,2mm)$) -- (sig.north);
+  \draw[arr] (exc.east) -- node[lbl, above, pos=0.35] {yes} ($(sig.east |- exc.east)+(9mm,0)$) |- (sig.east);
+  \node[note, right, text width=30mm] at ($(sig.east |- exc.east)+(10mm,0)$) {remove the named or\\flagged points;\\report lists them};
   \draw[arr] (sig) -- (nt);
   \draw[arr] (nt.west) -| node[lbl, above, pos=0.25] {yes} (nrm.north);
   \draw[arr] (nt.east) -| node[lbl, above, pos=0.25] {no} (fit.north);
   \draw[arr] (fit) -- (pct);
   \draw[darr] (nrm) -- (rank);
-  \draw[arr] (rank.south) |- (use.west);
-  \draw[arr] (pct.south) |- (use.east);
+  \draw[arr] (rank.south) -- (rank.south |- use.north);
+  \draw[arr] (pct.south) -- (pct.south |- use.north);
   \draw[arr] (use) -- (rd);
   \node[note, anchor=west] at ($(nt.east -| fit.north)+(2.5mm,-3.5mm)$) {\code{force\_method}\\skips the test};
 \end{tikzpicture}
@@ -1021,7 +1021,7 @@ Appendix~\ref{app:formulas}.
 \begin{table}[!htp]
 \caption{The two sigma estimates.}\label{tab:sigma}
 \small
-\begin{tabularx}{\textwidth}{@{}P{21mm}P{30mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{23mm}P{30mm}L@{}}
 \toprule
 \thead{Sigma} & \thead{Used for} & \thead{Estimator}\\
 \midrule
@@ -1255,7 +1255,7 @@ The percentiles are obtained in one of two ways, selected with \code{percentile\
 \begin{table}[!htp]
 \caption{Parametric and non-parametric percentiles.}\label{tab:pct}
 \small
-\begin{tabularx}{\textwidth}{@{}P{18mm}LL@{}}
+\begin{tabularx}{\textwidth}{@{}P{26mm}LL@{}}
 \toprule
  & \thead{\code{"fit"} (default, parametric)} & \thead{\code{"empirical"} (non-parametric)}\\
 \midrule
@@ -1595,15 +1595,15 @@ reported as \code{p\_stat}.
 \begin{tikzpicture}[x=1cm, y=1cm]
   \node[gbox, text width=20mm] (x) at (1.15,0) {Measurements\\$n \approx 20$\\limits, nominal};
   \node[fbox, text width=24mm] (feat) at (4.2,0) {Feature\\computation\\{\scriptsize\color{muted}\code{compute\_features}}};
-  \node[fbox, text width=36mm] (anc) at (8.2,1.5) {$\Ppkhat$, bootstrap SE\\[1pt]$z = (1.33-\Ppkhat)/\mathrm{SE}$};
-  \node[fbox, text width=36mm] (pre) at (8.2,-1.5) {16 numeric, 2 categorical\\imputed, scaled, one-hot\\$\rightarrow$ 24 network inputs};
-  \node[fbox, text width=26mm] (mlp) at (11.85,-1.5) {MLP 24--64--64--1\\ReLU $\rightarrow f(\mathbf{x})$};
-  \node[circle, draw=accent, line width=0.7pt, fill=white, inner sep=1pt, font=\large] (sum) at (11.85,0) {$+$};
-  \node[dbox, text width=24mm] (sig) at (14.4,0) {$\pi = \sigma(z + f)$\\$= P(P_{pk} < 1.33)$};
-  \node[wbox, text width=24mm] (out) at (14.4,1.6) {score $= 100\,\pi$\\Low / Medium / High};
+  \node[fbox, text width=33mm] (anc) at (8.2,1.5) {$\Ppkhat$, bootstrap SE\\[1pt]$z = (1.33-\Ppkhat)/\mathrm{SE}$};
+  \node[fbox, text width=35.5mm] (pre) at (8.2,-1.5) {16 numeric, 2 categorical\\imputed, scaled, one-hot\\$\rightarrow$ 24 network inputs};
+  \node[fbox, text width=24mm] (mlp) at (12.0,-1.5) {MLP 24--64--64--1\\ReLU $\rightarrow f(\mathbf{x})$};
+  \node[circle, draw=accent, line width=0.7pt, fill=white, inner sep=1pt, font=\large] (sum) at (12.0,0) {$+$};
+  \node[dbox, text width=24mm] (sig) at (14.35,0) {$\pi = \sigma(z + f)$\\$= P(P_{pk} < 1.33)$};
+  \node[wbox, minimum width=27mm, minimum height=8mm, font=\sffamily\scriptsize] (out) at (14.35,1.55) {score $= 100\,\pi$\\Low / Medium / High};
   \draw[arr] (x) -- (feat);
-  \draw[arr] (feat.east) -- ++(3mm,0) |- (anc.west);
-  \draw[arr] (feat.east) -- ++(3mm,0) |- (pre.west);
+  \draw[arr] (feat.east) -- ++(1.5mm,0) |- (anc.west);
+  \draw[arr] (feat.east) -- ++(1.5mm,0) |- (pre.west);
   \draw[arr] (pre) -- (mlp);
   \draw[arr] (anc.east) -| node[lbl, left, pos=0.8, align=right] {anchor $z$\\weight 1, fixed} (sum.north);
   \draw[arr] (mlp.north) -- node[lbl, left, align=right] {learned\\correction} (sum.south);
@@ -1900,22 +1900,22 @@ Running studies and decisions for every dimension of a measurement file, and pro
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[node distance=5mm and 3mm]
+\begin{tikzpicture}[node distance=6mm and 5mm]
   \node[gbox, minimum width=22mm] (src) {File, text,\\DataFrame or dict};
-  \node[fbox, minimum width=26mm, right=of src] (rt) {\code{read\_table}\\{\scriptsize\color{muted}detect layout}};
-  \node[fbox, minimum width=26mm, right=of rt] (sp) {split dimensions\\match specifications};
-  \node[ask, right=4mm of sp] (ok) {limits and\\data valid?};
-  \node[dbox, minimum width=32mm, above right=1mm and 5mm of ok] (cs) {\code{capability\_study}\\$\downarrow$\\\code{risk\_decision}};
-  \node[fbox, fill=bad, draw=badline, minimum width=32mm, below right=1mm and 5mm of ok] (er) {ERROR row\\{\scriptsize reason in \code{warnings}}};
-  \node[wbox, minimum width=76mm, anchor=north] (br) at ($(sp.south east |- er.south)+(0,-5mm)$) {\code{BatchResult}: \code{frame}, \code{studies}, \code{decisions}, \code{errors}};
-  \node[wbox, minimum width=76mm, below=3.5mm of br] (ot) {\code{table()}\enspace\code{report(dim)}\enspace\code{plot()}\enspace\code{to\_html()}\enspace\code{to\_excel()}};
+  \node[fbox, minimum width=20mm, right=of src] (rt) {\code{read\_table}\\{\scriptsize\color{muted}detect layout}};
+  \node[fbox, minimum width=24mm, right=of rt] (sp) {split dimensions\\match specifications};
+  \node[ask, right=5.5mm of sp] (ok) {limits and\\data valid?};
+  \node[dbox, minimum width=30mm, above right=1mm and 6mm of ok] (cs) {\code{capability\_study}\\$\downarrow$\\\code{risk\_decision}};
+  \node[fbox, fill=bad, draw=badline, minimum width=30mm, below right=1mm and 6mm of ok] (er) {ERROR row\\{\scriptsize reason in \code{warnings}}};
+  \node[wbox, minimum width=76mm, anchor=north] (br) at ($(sp.south east |- er.south)+(0,-6mm)$) {\code{BatchResult}: \code{frame}, \code{studies}, \code{decisions}, \code{errors}};
+  \node[wbox, minimum width=76mm, below=6mm of br] (ot) {\code{table()}\enspace\code{report(dim)}\enspace\code{plot()}\enspace\code{to\_html()}\enspace\code{to\_excel()}};
   \draw[arr] (src) -- (rt);
   \draw[arr] (rt) -- (sp);
   \draw[arr] (sp) -- (ok);
   \draw[arr] (ok.north) |- node[lbl, above, pos=0.7] {yes} (cs.west);
   \draw[arr] (ok.south) |- node[lbl, below, pos=0.7] {no} (er.west);
-  \draw[arr, -] (er.east) -- ($(er.east)+(3mm,0)$);
-  \draw[arr] (cs.east) -- ++(3mm,0) |- (br.east);
+  \draw[arr, -] (er.east) -- ($(er.east)+(5mm,0)$);
+  \draw[arr] (cs.east) -- ++(5mm,0) |- (br.east);
   \draw[arr] (br) -- (ot);
   \node[note, above=1mm of cs] {for each dimension};
 \end{tikzpicture}
@@ -2058,7 +2058,7 @@ results.report("D105")        # full study and decision report for one dimension
 \begin{table}[!htp]
 \caption{Result columns.}\label{tab:columns}
 \small
-\begin{tabularx}{\textwidth}{@{}P{46mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{52mm}L@{}}
 \toprule
 \thead{Column} & \thead{Meaning}\\
 \midrule
@@ -2275,7 +2275,7 @@ operational policy parameters, not as universal statistical constants \cite[Sec.
 \begin{table}[H]
 \caption{Settings of \code{monitor\_study} and \code{batch\_monitor}.}\label{tab:monsettings}
 \small
-\begin{tabularx}{\textwidth}{@{}P{25mm}P{21mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{25mm}P{20mm}L@{}}
 \toprule
 \thead{Argument} & \thead{Default} & \thead{Role}\\
 \midrule
@@ -2494,7 +2494,7 @@ The report has seven blocks (\tabref{tab:reportblocks}). The complete report of 
 \begin{table}[!htp]
 \caption{Blocks of the study report and what to check in each.}\label{tab:reportblocks}
 \small
-\begin{tabularx}{\textwidth}{@{}P{27mm}P{68mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{29mm}P{62mm}L@{}}
 \toprule
 \thead{Block} & \thead{Content} & \thead{What to check}\\
 \midrule
@@ -2581,7 +2581,7 @@ results.plot()                                 # batch overview
 \begin{table}[!htp]
 \caption{Figures of a study.}\label{tab:plotkinds}
 \small
-\begin{tabularx}{\textwidth}{@{}P{19mm}P{61mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{19mm}P{65mm}L@{}}
 \toprule
 \thead{kind} & \thead{Panels} & \thead{Question}\\
 \midrule
@@ -2631,7 +2631,8 @@ point is outside the limits.}\label{fig:stability}
 
 For the outlier and stability figures, \code{show\_data=True} writes each value next to its point, and in the
 outlier figure also overlays all values on the box plot (\figref{fig:showdata}). It is off by default, because with
-many points the labels crowd the chart. On the command line the same switch is \code{--show-values}%
+many points the labels crowd the chart. The values are written with as many decimals as the data have, at most
+three. On the command line the same switch is \code{--show-values}%
 .
 
 \begin{pycode}
@@ -2712,7 +2713,7 @@ raised as \code{DataError} (a \code{ValueError}) or \code{ValueError}.
 \begin{table}[!htp]
 \caption{Errors.}
 \small
-\begin{tabularx}{\textwidth}{@{}P{54mm}P{34mm}L@{}}
+\begin{tabularx}{\textwidth}{@{}P{62mm}P{36mm}L@{}}
 \toprule
 \thead{Message} & \thead{Cause} & \thead{What to do}\\
 \midrule
@@ -2737,7 +2738,7 @@ Warnings do not stop the analysis. They appear at the end of the report, in \cod
 \begin{table}[!htp]
 \caption{Warnings.}
 \small
-\begin{tabularx}{\textwidth}{@{}P{44mm}LP{46mm}@{}}
+\begin{tabularx}{\textwidth}{@{}P{48mm}LP{44mm}@{}}
 \toprule
 \thead{Message} & \thead{Meaning} & \thead{What to do}\\
 \midrule
@@ -2760,7 +2761,7 @@ The monitoring report (\chapref{ch:monitor}) lists its notes under \code{Note}; 
 \begin{table}[!htp]
 \caption{Notes of the monitoring report.}
 \small
-\begin{tabularx}{\textwidth}{@{}P{50mm}LP{40mm}@{}}
+\begin{tabularx}{\textwidth}{@{}P{54mm}LP{46mm}@{}}
 \toprule
 \thead{Message} & \thead{Meaning} & \thead{What to do}\\
 \midrule
@@ -2811,7 +2812,7 @@ Runs the workflow of \chapref{ch:workflow} on one characteristic.
 \end{params}
 
 \subsection*{CapabilityStudy}
-\begin{attrs}[46mm]
+\begin{attrs}[56mm]
 \code{n}, \code{mean} & Number of observations used; their mean.\\
 \code{sigma\_within}, \code{sigma\_overall}, \code{sigma\_ratio} & Sigma estimates and their ratio.\\
 \code{sigma\_between}, \code{sigma\_bw} & Between-subgroup and between/within sigma (subgroups only, else NaN).\\
@@ -2842,7 +2843,7 @@ Runs the workflow of \chapref{ch:workflow} on one characteristic.
 
 Risk-calibrated approval (\chapref{ch:risk}).
 
-\begin{params}
+\begin{params}[26mm]
 \code{study\_or\_cpk} & required & A \code{CapabilityStudy}, or a capability estimate (then pass \code{n}).\\
 \code{n} & \code{None} & Sample size, when an estimate is passed.\\
 \code{c0} & 1.33 & Required capability.\\
@@ -2899,7 +2900,7 @@ Related functions in \code{uccap.risk}: \code{min\_accepted(n, *, c0, alpha, cos
 UC-Cap risk that the true $P_{pk}$ is below 1.33 (\chapref{ch:hybrid}). Needs the model parameters
 (\secref{sec:modelfile}); without them it raises \code{ModelNotAvailable}.
 
-\begin{params}
+{\renewcommand{\paramdefw}{16mm}\begin{params}[24mm]
 \code{data} & required & Measurements, or a \code{CapabilityStudy} (its data and limits are used).\\
 \code{lsl}, \code{usl} & \code{None} & Both limits are required.\\
 \code{nominal} & \code{None} & Drawing nominal; defaults to the midpoint.\\
@@ -2907,7 +2908,7 @@ UC-Cap risk that the true $P_{pk}$ is below 1.33 (\chapref{ch:hybrid}). Needs th
 \code{rng} & 0 & Seed of the bootstrap.\\
 \code{thresholds} & \code{None} & Risk bands (low, high); (0.40, 0.70) by default.\\
 \code{costs} & \code{None} & ($c_{FA}$, $c_{FR}$, $c_R$): bands from the three-action policy.\\
-\end{params}
+\end{params}}
 
 \subsection*{HybridRisk}
 \begin{attrs}[37mm]
@@ -2937,7 +2938,7 @@ need them.
 \hspace*{2em}rng=0, hybrid=True, risk\_thresholds=None, risk\_costs=None, progress=False,\\
 \hspace*{2em}**study\_kwargs) $\rightarrow$ BatchResult}
 
-\begin{params}
+\begin{params}[32mm]
 \code{data} & required & File path, pasted text, DataFrame, dictionary or \code{TableInput}.\\
 \code{specs} & \code{None} & Specification table or dictionary; read from \code{data} when omitted.\\
 \code{c0} & 1.33 & Required capability; \code{None} skips the decisions.\\
@@ -2951,7 +2952,7 @@ need them.
 \end{params}
 
 \subsection*{BatchResult}
-\begin{attrs}[60mm]
+\begin{attrs}[70mm]
 \code{frame} & DataFrame with every computed column (\tabref{tab:columns}).\\
 \code{studies}, \code{decisions}, \code{risks}, \code{errors} & Dictionaries by dimension name.\\
 \code{table(columns=None, rename=None, decimals=4)} & Selected and renamed columns, rounded to \code{decimals} places for display and export (\code{None}: full precision, as in \code{frame}).\\
@@ -3000,7 +3001,7 @@ Runs \code{monitor\_study} for every dimension; \code{data} and \code{specs} as 
 of \code{monitor\_study} apply to all dimensions (\secref{sec:batchmonitor}).
 
 \subsection*{MonitorBatchResult}
-\begin{attrs}[60mm]
+\begin{attrs}[68mm]
 \code{frame} & One row per dimension: \code{dimension}, \code{target}, \code{LSL}, \code{USL}, \code{n}, \code{subgroups}, \code{mean}, \code{sd\_overall}, \code{Ppk\_normal}, \code{pi\_final}, \code{pi\_min}, \code{first\_intervention}, \code{zone}, \code{category}, \code{warnings}.\\
 \code{results}, \code{errors}, \code{settings} & \code{MonitorResult} and error message by dimension; the settings used.\\
 \code{table(columns=None, rename=None, decimals=4)} & Selected and renamed columns, as for \code{BatchResult}.\\
@@ -3012,7 +3013,7 @@ of \code{monitor\_study} apply to all dimensions (\secref{sec:batchmonitor}).
 
 \section{Reading data}
 
-\begin{attrs}[44mm]
+\begin{attrs}[48mm]
 \code{read\_table(source, sheet=0)} & Reads any layout (\chapref{ch:data}); returns a \code{TableInput} with \code{data}, \code{specs}, \code{layout}, \code{units}, \code{descriptions}, \code{notes} and \code{summary()}.\\
 \code{read\_data(path, sheet=0)} & Plain table from CSV, TXT or Excel, as a DataFrame.\\
 \code{read\_text(text)} & Plain table from pasted text.\\
@@ -3021,7 +3022,7 @@ of \code{monitor\_study} apply to all dimensions (\secref{sec:batchmonitor}).
 
 \section{Plot functions}\label{sec:apiplot}
 
-\begin{attrs}[78mm]
+\begin{attrs}[90mm]
 \multicolumn{2}{@{}l}{\textit{Figures (return a matplotlib Figure)}}\\
 \code{study.plot(decision=None, title=None, kind="overview")} & One of the figures below by \code{kind}.\\
 \code{outlier\_figure(study, title=None, show\_data=False)} & Outlier screen: fences and box plot; \code{show\_data} writes the values on the points and overlays them on the box plot.\\
@@ -3119,7 +3120,7 @@ against 0.874), which is close to the value of Table 4 of the same article (0.84
 \begin{table}[H]
 \caption{Simulation study of the monitoring article reproduced ($B = 1000$).}\label{tab:monsim}
 \small
-\begin{tabularx}{\textwidth}{@{}P{42mm}Lrr@{}}
+\begin{tabularx}{\textwidth}{@{}P{44mm}Lrr@{}}
 \toprule
 \thead{Scenario} & \thead{Quantity} & \thead{\pkg{}} & \thead{Article}\\
 \midrule
@@ -3151,6 +3152,11 @@ exactly.
 \item Asymmetric tolerances use the Pearn--Chen indices.
 \item The SRMSSD within sigma is made unbiased with the constant $c_4(n)$.
 \item The Anderson--Darling p-value uses the approximation of D'Agostino and Stephens \cite{dagostino-stephens}.
+\item The minimum of 8 usable values is a technical lower limit, not a recommended sample size: it is the smallest
+  sample for which the Anderson--Darling test of R's \code{nortest} package, the reference used in validation, gives a
+  result, and it leaves at least 7 moving ranges for the within sigma. The articles work with larger samples, for
+  example 32 parts in the case study of the workflow article and 20 measurements per dimension in the hybrid
+  article; \pkg{} warns below 20.
 \item Approval uses the overall sigma ($P_{pk}$), matching the estimator and standard error of the risk-calibration article.
 \item The distribution library is aligned with Minitab's Individual Distribution Identification and with JMP; Johnson families are fitted by maximum likelihood.
 \item The bootstrap for three-parameter families keeps the fitted threshold fixed.
