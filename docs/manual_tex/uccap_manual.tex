@@ -1371,17 +1371,19 @@ still rejected \cite[Sec.~7]{jy-risk}. The failure probability and the cost-base
   \node[ask, below=of set] (nrm) {normal\\study?};
   \node[fbox, minimum width=56mm, minimum height=14mm, below left=4.5mm and -4mm of nrm] (an) {\textbf{Analytic}\\{\scriptsize $\mathrm{SE}$ from \eqref{eq:se}}\\{\scriptsize $p_{\text{fail}} = \Phi\bigl((C_0 - \Ppkhat)/\mathrm{SE}\bigr)$}};
   \node[fbox, minimum width=56mm, minimum height=14mm, below right=4.5mm and -4mm of nrm] (bs) {\textbf{Bootstrap}\\{\scriptsize resample, refit, recompute the index}\\{\scriptsize $p_{\text{fail}}$ = share of estimates below $C_0$}};
-  \node[ask, below=19mm of nrm] (ok) {$p_{\text{fail}} \le \alpha$?};
-  \node[fbox, draw=goodline, fill=good, minimum width=30mm, below left=7mm and 6mm of ok] (acc) {\textbf{ACCEPT}};
-  \node[fbox, draw=badline, fill=bad, minimum width=30mm, below right=7mm and 6mm of ok] (rej) {\textbf{REJECT}};
+  \node[ask, below=24mm of nrm] (ok) {$p_{\text{fail}} \le \alpha$?};
+  \node[fbox, draw=goodline, fill=good, minimum width=30mm, below left=6mm and 4mm of ok] (acc) {\textbf{ACCEPT}};
+  \node[fbox, draw=badline, fill=bad, minimum width=30mm, below right=6mm and 4mm of ok] (rej) {\textbf{REJECT}};
   \draw[arr] (in) -- (set);
   \draw[arr] (set) -- (nrm);
   \draw[arr] (nrm.west) -| node[lbl, above, pos=0.25] {yes} (an.north);
   \draw[arr] (nrm.east) -| node[lbl, above, pos=0.25] {no} (bs.north);
-  \draw[arr] (an.south) |- (ok.west);
-  \draw[arr] (bs.south) |- (ok.east);
-  \draw[arr] (ok.south) -- ++(0,-3mm) -| node[lbl, above, pos=0.25] {yes} (acc.north);
-  \draw[arr] (ok.south) -- ++(0,-3mm) -| node[lbl, above, pos=0.25] {no} (rej.north);
+  \coordinate (mg) at ($(ok.north)+(0,4mm)$);
+  \draw[arr, -] (an.south) |- (mg);
+  \draw[arr, -] (bs.south) |- (mg);
+  \draw[arr] (mg) -- (ok.north);
+  \draw[arr] (ok.west) -| node[lbl, above, pos=0.25] {yes} (acc.north);
+  \draw[arr] (ok.east) -| node[lbl, above, pos=0.25] {no} (rej.north);
   \node[note, anchor=west] at ($(nrm.east -| bs.north)+(2.5mm,-3.5mm)$) {\code{method=} overrides};
 \end{tikzpicture}
 \caption{The risk-calibrated decision of \code{risk\_decision}. For normal data the rule is equivalent to
@@ -2237,8 +2239,8 @@ not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5
   \node[fbox, minimum width=68mm, below=of s2] (s3) {\textbf{3\enspace Posterior acceptability}\\{\scriptsize $M$ draws of $(\mu_t, \sigma_t)$; $\pi_t$ = share with $q(\theta_t) \ge q_0$}};
   \node[ask, below=of s3] (a1) {$\pi_t \ge \gamma_A$?};
   \node[ask, below=of a1] (a2) {$\pi_t \le \gamma_R$\\and $t \ge t_{\min}$?};
-  \node[fbox, draw=goodline, fill=good, minimum width=28mm, anchor=west] (cont) at ($(a1.east)+(12mm,0)$) {\textbf{continue}};
-  \node[fbox, draw=badline, fill=bad, minimum width=28mm, anchor=west] (int) at ($(a2.east)+(12mm,0)$) {\textbf{intervene}, $\tau = t$};
+  \node[fbox, draw=goodline, fill=good, minimum width=32mm, anchor=west] (cont) at ($(a2.east |- a1.east)+(10mm,0)$) {\textbf{continue}};
+  \node[fbox, draw=badline, fill=bad, minimum width=32mm, anchor=west] (int) at ($(a2.east)+(10mm,0)$) {\textbf{intervene}, $\tau = t$};
   \node[fbox, draw=warnline, fill=warn, minimum width=28mm, below=of a2] (mon) {\textbf{monitor}};
   \draw[arr] (in) -- (s1);
   \draw[arr] (s1) -- (s2);
@@ -2248,8 +2250,8 @@ not vanish: with $\lambda_f = 0.95$ the half-life of past evidence is about 13.5
   \draw[arr] (a1) -- node[lbl, left] {no} (a2);
   \draw[arr] (a2.east) -- node[lbl, above] {yes} (int.west);
   \draw[arr] (a2) -- node[lbl, left] {no} (mon);
-  \draw[arr] (cont.north) |- node[lbl, right, align=left, pos=0.3] {next\\subgroup} (s1.east);
-  \draw[arr] (mon.west) -- ++(-24mm,0) |- node[lbl, left, align=right, pos=0.25] {next\\subgroup} (s1.west);
+  \draw[arr] (cont.east) -- ++(6mm,0) coordinate (rl) |- node[lbl, right, align=left, pos=0.25] {next\\subgroup} (s1.east);
+  \draw[arr] let \p1 = (rl), \p2 = (mon.west) in (\p2) -- (-\x1,\y2) |- node[lbl, left, align=right, pos=0.25] {next\\subgroup} (s1.west);
 \end{tikzpicture}
 \caption{One monitoring update of \code{monitor\_study}, repeated for every completed subgroup (Algorithm~1 of the
 monitoring article \cite{jy-monitor}). The zones follow \eqref{eq:pi} and Section~\ref{sec:sboam}.}\label{fig:monflow}
