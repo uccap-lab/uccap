@@ -172,7 +172,7 @@ uccap --version                     # the command-line tool (Section 8.3)
 To modify the package or run the tests and examples:
 
 ```sh
-git clone https://github.com/fei-jiang/uccap.git
+git clone https://github.com/uccap-lab/uccap.git
 cd uccap
 pip install -e ".[test,excel,plot]"
 pytest                              # full test suite

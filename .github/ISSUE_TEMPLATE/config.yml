@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: User manual
-    url: https://github.com/fei-jiang/uccap/blob/main/docs/MANUAL.md
+    url: https://github.com/uccap-lab/uccap/blob/main/docs/MANUAL.md
     about: Every option, how to read the reports, warnings and formulas

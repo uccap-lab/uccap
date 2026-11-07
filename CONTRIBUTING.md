@@ -20,7 +20,7 @@ Security problems: see [SECURITY.md](SECURITY.md).
 ## Development setup
 
 ```bash
-git clone https://github.com/fei-jiang/uccap.git
+git clone https://github.com/uccap-lab/uccap.git
 cd uccap
 pip install -e ".[dev]"          # the package, pytest, openpyxl, matplotlib, ruff, nbclient
 pytest                           # the full test suite, about 20 s
