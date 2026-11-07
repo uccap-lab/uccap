@@ -2014,6 +2014,7 @@ written: plan.png
 \code{--zero-lsl-limit} & Read nominal 0 with LSL 0 as a real lower limit, not as a GD\&T bound (\secref{sec:asym}).\\
 \code{--plots [KINDS]} & Write PNG figures (\chapref{ch:plots}) of every dimension into \code{<name>\_uccap\_plots}: \code{overview} (the default), \code{outliers}, \code{stability}, \code{capability}, \code{approval}, \code{uccap} (needs the model parameters), a comma-separated list, or \code{all}; plus \code{all\_dimensions.png}, the batch overview. Needs matplotlib.\\
 \code{--show-values} & Write the measured values on the outlier and stability charts.\\
+\code{--decimals N} & Decimals of these values (default: as many as the data have, at most three).\\
 \code{--quiet} & Do not print the summary table.\\
 \code{--cite}, \code{--version} & Print the BibTeX entries or the version, then exit.\\
 \bottomrule
@@ -2630,7 +2631,8 @@ point is outside the limits.}\label{fig:stability}
 For the outlier and stability figures, \code{show\_data=True} writes each value next to its point, and in the
 outlier figure also overlays all values on the box plot (\figref{fig:showdata}). It is off by default, because with
 many points the labels crowd the chart. The values are written with as many decimals as the data have, at most
-three. On the command line the same switch is \code{--show-values}%
+three; \code{decimals=2}, for example, sets the number. On the command line the same switches are \code{--show-values} and
+\code{--decimals}%
 .
 
 \begin{pycode}
@@ -2831,7 +2833,7 @@ Runs the workflow of \chapref{ch:workflow} on one characteristic.
 \code{spec}, \code{warnings} & The specification; list of warning texts.\\
 \code{report()}, \code{to\_dict()} & Text report; flat dictionary of the main results.\\
 \code{without\_outliers()} & The same study with the flagged points excluded.\\
-\code{plot(decision=None, title=None, kind="overview", show\_data=False)} & Figure by question (\chapref{ch:plots}).\\
+\code{plot(decision=None, title=None, kind="overview", show\_data=False, decimals=None)} & Figure by question (\chapref{ch:plots}).\\
 \end{attrs}
 
 \section{risk\_decision}
@@ -3023,15 +3025,15 @@ of \code{monitor\_study} apply to all dimensions (\secref{sec:batchmonitor}).
 \begin{attrs}[90mm]
 \multicolumn{2}{@{}l}{\textit{Figures (return a matplotlib Figure)}}\\
 \code{study.plot(decision=None, title=None, kind="overview")} & One of the figures below by \code{kind}.\\
-\code{outlier\_figure(study, title=None, show\_data=False)} & Outlier screen: fences and box plot; \code{show\_data} writes the values on the points and overlays them on the box plot.\\
-\code{stability\_figure(study, title=None, show\_data=False)} & Individuals and moving range charts; \code{show\_data} writes the values on the points.\\
+\code{outlier\_figure(study, title=None, show\_data=False, decimals=None)} & Outlier screen: fences and box plot; \code{show\_data} writes the values on the points and overlays them on the box plot; \code{decimals} sets their decimals (default: as many as the data have, at most three).\\
+\code{stability\_figure(study, title=None, show\_data=False, decimals=None)} & Individuals and moving range charts; \code{show\_data} and \code{decimals} as above.\\
 \code{capability\_figure(study, title=None)} & Histogram and probability plot.\\
 \code{approval\_figure(study, decision=None, title=None, **kwargs)} & Decision panel and estimate needed against $n$; without a decision, $\alpha = 0.05$ unless given.\\
 \code{uccap\_figure(study\_or\_risk, title=None, **kwargs)} & UC-Cap contributions and risk score; also \code{HybridRisk.plot()}.\\
 \code{study\_overview(study, decision=None, title=None)} & The main panels in one figure.\\
 \multicolumn{2}{@{}l}{\textit{Panels (take an optional \code{ax}, return it)}}\\
-\code{outlier\_chart(study, ax=None, show\_data=False)}, \code{outlier\_box(study, ax=None, show\_data=False)} & Values against the outlier fences; box plot.\\
-\code{individuals\_chart(study, ax=None, show\_data=False)}, \code{moving\_range\_chart(study, ax=None, show\_data=False)} & Control charts with UCL and LCL.\\
+\code{outlier\_chart(study, ax=None, show\_data=False, decimals=None)}, \code{outlier\_box(study, ax=None, show\_data=False)} & Values against the outlier fences; box plot.\\
+\code{individuals\_chart(study, ax=None, show\_data=False, decimals=None)}, \code{moving\_range\_chart(study, ax=None, show\_data=False, decimals=None)} & Control charts with UCL and LCL.\\
 \code{capability\_histogram(study, ax=None, bins="auto")} & Histogram with limits and fitted density.\\
 \code{probability\_plot(study, ax=None)} & Probability plot for the distribution used.\\
 \code{decision\_plot(decision, study=None, ax=None, n\_boot=2000, rng=0)} & Uncertainty in the true capability against $C_0$.\\
