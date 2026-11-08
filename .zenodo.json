@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Reference implementation of the process capability workflow, the risk-calibrated capability approval rule and the UC-Cap hybrid risk score published in The International Journal of Advanced Manufacturing Technology (2026), and of the Bayesian operational acceptability monitoring after approval described in an article accepted for publication in the same journal.",
   "creators": [
-    {"name": "Yang, Lei"},
-    {"name": "Jiang, Fei"}
+    {"name": "Jiang, Fei"},
+    {"name": "Yang, Lei"}
   ],
   "keywords": ["process capability", "Cpk", "uncertainty quantification", "statistical quality control", "decision under uncertainty", "process monitoring"],
   "related_identifiers": [

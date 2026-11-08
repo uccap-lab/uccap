@@ -9,7 +9,7 @@ description = "Process Capability Analysis, Risk-Calibrated Approval and Hybrid 
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "Lei Yang" }, { name = "Fei Jiang" }]
+authors = [{ name = "Fei Jiang" }, { name = "Lei Yang" }]
 dependencies = ["numpy>=1.22", "scipy>=1.11", "pandas>=1.5"]
 classifiers = [
     "Development Status :: 4 - Beta",

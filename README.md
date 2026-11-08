@@ -255,14 +255,14 @@ Related: *Finite-sample decision instability in threshold-based process capabili
 
 ## Authors and contributions
 
-Lei Yang and Fei Jiang contributed equally to `uccap`.
+Fei Jiang and Lei Yang contributed equally to `uccap`.
 
 | Area | Main files | Lead |
 |---|---|---|
 | Risk-calibrated approval and sample-size planning | `src/uccap/risk/` | Lei&nbsp;Yang |
 | Batch processing, data input, templates, HTML and Excel export | `src/uccap/batch.py`, `io.py`, `export.py`, `templates/` | Lei&nbsp;Yang |
 | Hybrid UC-Cap risk score | `src/uccap/hybrid/` | Lei&nbsp;Yang |
-| Operational acceptability monitoring | `src/uccap/monitor/`, `validation/monitor_simulation.py` | Lei&nbsp;Yang and Fei&nbsp;Jiang, equally |
+| Operational acceptability monitoring | `src/uccap/monitor/`, `validation/monitor_simulation.py` | Fei&nbsp;Jiang and Lei&nbsp;Yang, equally |
 | Testing, continuous integration and release | `tests/`, `.github/`, `pyproject.toml` | Lei&nbsp;Yang |
 | Capability workflow: sigma estimators, indices, normality tests, outlier screening, distribution fitting | `src/uccap/workflow/` | Fei&nbsp;Jiang |
 | External validation against R and NIST, Minitab check package; reproduction of the articles' results; notebooks | `validation/`, `tests/test_validation.py`, `tests/test_paper_reproduction.py`, `docs/validation.md`, `examples/notebooks/` | Fei&nbsp;Jiang |

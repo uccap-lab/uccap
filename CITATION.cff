@@ -2,10 +2,10 @@ cff-version: 1.2.0
 message: "If you use this software, please cite the articles below for the modules you use. Both authors contributed equally."
 title: "uccap: Process Capability Analysis, Risk-Calibrated Approval and Hybrid Statistical Learning Decision Support with Finite Samples"
 authors:
-  - family-names: Yang
-    given-names: Lei
   - family-names: Jiang
     given-names: Fei
+  - family-names: Yang
+    given-names: Lei
 version: 0.1.0
 license: MIT
 repository-code: "https://github.com/uccap-lab/uccap"
