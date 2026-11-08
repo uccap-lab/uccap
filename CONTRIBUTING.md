@@ -54,8 +54,8 @@ Some files are built from others. Edit the source and regenerate:
 | `docs/MANUAL.md`, `docs/figures/manual/` | `docs/manual_tex/uccap_manual.tex` | `python docs/manual_tex/to_markdown.py` (after the PDF) |
 | `examples/*_output.txt` | `examples/*.py` | `PYTHONPATH=src python examples/quickstart.py > examples/quickstart_output.txt`, likewise for `batch_example.py` |
 
-The UC-Cap model parameters are not part of this repository; they are available from the authors on
-request and are not retrained here. Tests that need them are skipped unless `UCCAP_MODEL` points to the
+The UC-Cap model parameters are not included in this release and are not
+retrained here. Tests that need them are skipped unless `UCCAP_MODEL` points to the
 file. The industrial training data are not public.
 
 ## Code of conduct

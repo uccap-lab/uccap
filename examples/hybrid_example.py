@@ -1,7 +1,7 @@
 """UC-Cap hybrid risk for one dimension (simulated measurements).
 
-The trained UC-Cap parameters are not included in this release; they are available from the
-authors on request. Give their location with uccap.hybrid.set_model_path(path) or the
+The trained UC-Cap parameters are not included in this release. Give
+their location with uccap.hybrid.set_model_path(path) or the
 environment variable UCCAP_MODEL. Without them this example shows the statistical part only.
 """
 import math

@@ -5,7 +5,7 @@ f = MLP(24 -> 64 -> 64 -> 1, ReLU) on the standardised residual features.
 
 The weights and preprocessing parameters (training medians, means, scales and category
 levels) are those of the model reported in Table 10 of the paper. They are not included in this
-release; they are available from the authors on request. Give their location with
+release. Give their location with
 :func:`set_model_path` or the environment variable ``UCCAP_MODEL``. Numeric NaN inputs are replaced by the training median, unknown categories are
 encoded as all zeros, as in the scikit-learn pipeline used for training.
 """
@@ -80,8 +80,8 @@ def load_model() -> dict:
     path = model_path()
     if path is None:
         raise ModelNotAvailable(
-            "the trained UC-Cap parameters are not included in this release (they are available from the "
-            f"authors on request); give their location with uccap.hybrid.set_model_path(path) or ${MODEL_ENV}")
+            "the trained UC-Cap parameters are not included in this release; "
+            f"give their location with uccap.hybrid.set_model_path(path) or ${MODEL_ENV}")
     b = json.loads(path.read_text())
     assert tuple(b["numeric_features"]) == NUMERIC and tuple(b["categorical_features"]) == CATEGORICAL
     for k in ("numeric_median", "numeric_mean", "numeric_scale"):

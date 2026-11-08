@@ -7,8 +7,8 @@ manufacturing (Jiang & Yang, IJAMT 2026, doi:10.1007/s00170-026-18833-9; arXiv:2
 
 The first term is the statistical anchor; f is a small neural network that corrects it using
 distributional and specification features. The network is the paper's final model (V4.2,
-Table 10). Its trained parameters are not included in this release; they are available from the
-authors on request (see :func:`set_model_path`). Without them the features
+Table 10). Its trained parameters are not included in this release
+(see :func:`set_model_path`). Without them the features
 (:func:`compute_features`) and the mechanism signals (:mod:`uccap.hybrid.mechanism`) are still
 available. The model was trained for C0 = 1.33 on dimensional data with bilateral tolerances
 (upper-limit-only GD&T characteristics coded with LSL = 0 and Ppk = Ppu), with inputs computed

@@ -285,7 +285,7 @@ def batch_study(data, specs=None, *, c0: Optional[float] = 1.33, alpha: Optional
     data, specs = _resolve_input(data, specs)
     if hybrid and not model_available():
         warnings.warn("UC-Cap risk columns left out: the trained parameters are not included in this release "
-                      "(available from the authors on request; see uccap.hybrid.set_model_path)", stacklevel=2)
+                      "(see uccap.hybrid.set_model_path)", stacklevel=2)
         hybrid = False
     series = split_dimensions(data)
     spec_map = parse_specs(specs)

@@ -23,7 +23,7 @@ def test_missing_model_gives_clear_error(tmp_path, monkeypatch):
     try:
         assert not model_available() and model_path() is None
         x = np.random.default_rng(0).normal(10, 0.02, 30)
-        with pytest.raises(ModelNotAvailable, match="available from the authors on request"):
+        with pytest.raises(ModelNotAvailable, match="not included in this release"):
             hybrid_risk(x, 9.9, 10.1)
         assert compute_features(x, 9.9, 10.1)["A_Ppk"] > 0   # features need no model
         with pytest.warns(UserWarning, match="UC-Cap risk columns left out"):

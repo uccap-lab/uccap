@@ -293,7 +293,7 @@ results.to_excel("results.xlsx")     # coloured workbook with a Reports sheet
 
 ### 3.4 The hybrid risk score
 
-For bilateral tolerances or an upper limit only, and samples of about 20 parts, the UC-Cap model of the third article gives the probability that the true $P_{pk}$ is below 1.33, a score from 0 to 100 and a risk level. The trained parameters of its network are not included in this release; they are available from the authors on request (Section 7.2). With them:
+For bilateral tolerances or an upper limit only, and samples of about 20 parts, the UC-Cap model of the third article gives the probability that the true $P_{pk}$ is below 1.33, a score from 0 to 100 and a risk level. The trained parameters of its network are not included in this release (Section 7.2). With them:
 
 ```python
 from uccap import hybrid_risk
@@ -750,7 +750,7 @@ $z$ is the uncertainty-adjusted distance to the threshold and enters with a fixe
 
 ### 7.2 The model parameters
 
-The trained weights and preprocessing parameters of the network are not included in this release of uccap; they are available from the authors on request. Everything that does not need the network works without them: the model inputs (`compute_features`, Table 7.2), the statistical anchor $z$ with its probability $\sigma(z)$, and the mechanism signals of the decision layer (Section 7.4.1). With a copy of the parameter file, give its location in Python, in the environment variable `UCCAP_MODEL`, or with the `--model` option of the `uccap` command (Section 8.3):
+The trained weights and preprocessing parameters of the network are not included in this release of uccap. Everything that does not need the network works without them: the model inputs (`compute_features`, Table 7.2), the statistical anchor $z$ with its probability $\sigma(z)$, and the mechanism signals of the decision layer (Section 7.4.1). With a copy of the parameter file, give its location in Python, in the environment variable `UCCAP_MODEL`, or with the `--model` option of the `uccap` command (Section 8.3):
 
 ```python
 import uccap.hybrid

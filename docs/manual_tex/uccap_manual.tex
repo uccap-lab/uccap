@@ -679,7 +679,7 @@ results.to_excel("results.xlsx")     # coloured workbook with a Reports sheet
 
 For bilateral tolerances or an upper limit only, and samples of about 20 parts, the UC-Cap model of the third article gives
 the probability that the true $P_{pk}$ is below 1.33, a score from 0 to 100 and a risk level. The trained parameters
-of its network are not included in this release; they are available from the authors on request
+of its network are not included in this release
 (\secref{sec:modelfile}). With them:
 
 \begin{pycode}
@@ -1643,8 +1643,8 @@ parameters are not included in this release (\secref{sec:modelfile}).}\label{fig
 
 \section{The model parameters}\label{sec:modelfile}
 
-The trained weights and preprocessing parameters of the network are not included in this release of \pkg{}; they
-are available from the authors on request. Everything that does not need the network works without them: the
+The trained weights and preprocessing parameters of the network are not included in this release of \pkg{}.
+Everything that does not need the network works without them: the
 model inputs (\code{compute\_features}, \tabref{tab:features}), the statistical anchor $z$ with its probability
 $\sigma(z)$, and the mechanism signals of the decision layer (\secref{sec:reasons}). With a copy of the parameter
 file, give its location in Python, in the environment variable \code{UCCAP\_MODEL}, or with the \code{--model}

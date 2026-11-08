@@ -36,8 +36,7 @@ def _parser() -> argparse.ArgumentParser:
     risk.add_argument("--alpha", type=float, help="tolerated probability of a false approval (default 0.05)")
     risk.add_argument("--cost-ratio", type=float, help="cost of a false approval / cost of a false rejection")
     p.add_argument("--no-hybrid", action="store_true", help="skip the UC-Cap risk score")
-    p.add_argument("--model", metavar="PATH", help="trained UC-Cap parameters (JSON); not included in this release, "
-                                                    "available from the authors on request")
+    p.add_argument("--model", metavar="PATH", help="trained UC-Cap parameters (JSON); not included in this release")
     p.add_argument("--zero-lsl-limit", action="store_true",
                    help="read nominal 0 with LSL 0 as a real lower limit, not as a GD&T bound (upper limit only)")
     p.add_argument("--plots", nargs="?", const="overview", metavar="KINDS",

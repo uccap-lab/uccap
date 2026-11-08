@@ -13,8 +13,8 @@ All notable changes are listed here. Versions follow [semantic versioning](https
   (`gauge_sd`). Command `uccap monitor`; plots `monitor_figure` and `monitor_overview`;
   `validation/monitor_simulation.py` reproduces Tables 4 and 11; notebook 04 and `examples/monitor_example.py`;
   a manual chapter. The other modules are unchanged.
-- `uccap.hybrid`: the trained UC-Cap parameters are not included in this release; they are available from
-  the authors on request. `set_model_path`, the environment variable `UCCAP_MODEL` and `uccap --model PATH`
+- `uccap.hybrid`: the trained UC-Cap parameters are not included in this release.
+  `set_model_path`, the environment variable `UCCAP_MODEL` and `uccap --model PATH`
   give their location; `model_available` tells whether they are found. Without them `hybrid_risk` raises
   `ModelNotAvailable`, `batch_study` and the command line leave out the UC-Cap columns and plots with a
   warning, and the model inputs and mechanism signals work as before.

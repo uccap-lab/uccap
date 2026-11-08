@@ -112,7 +112,7 @@ import uccap.hybrid
 from uccap import hybrid_risk
 
 x = np.random.default_rng(11).normal(10.012, 0.011, 20)   # 20 parts of another dimension
-uccap.hybrid.set_model_path("uccap_v4_2.json")             # trained parameters, available on request
+uccap.hybrid.set_model_path("uccap_v4_2.json")             # trained parameters, not included in this release
 r = hybrid_risk(x, lsl=9.95, usl=10.05, nominal=10.0)
 r.p, r.score, r.level                 # probability, score 0-100, Low / Medium / High
 ```
@@ -159,8 +159,8 @@ uccap --cite                                               # BibTeX for the arti
 | `uccap.batch`, `uccap.io`, `uccap.export` | Production use | `batch_study` (with the UC-Cap score per dimension), `read_table`, HTML and Excel export with colour rules |
 | `uccap.plot` | Figures by question | outlier screen, stability (I-MR), capability, risk-calibrated approval, UC-Cap score; overview, batch overview, sample-size curves; monitoring trajectory and overview |
 
-The trained UC-Cap parameters (weights and preprocessing) are not included in this release; they are
-available from the authors on request. Give their location with `uccap.hybrid.set_model_path(path)`, the
+The trained UC-Cap parameters (weights and preprocessing) are not included in this release. Give
+their location with `uccap.hybrid.set_model_path(path)`, the
 environment variable `UCCAP_MODEL` or `uccap --model PATH`. Without them `hybrid_risk` raises a clear
 error, the batch and the command line leave out the UC-Cap columns with a warning, and everything else,
 including the model inputs and the mechanism signals of the decision layer, works as usual. The industrial

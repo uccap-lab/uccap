@@ -88,7 +88,7 @@ The cost-sensitive decisions are made with `uccap.risk` (`min_accepted`, identic
 **Hybrid article** (doi:10.1007/s00170-026-18833-9). The network parameters were exported from the training
 run of the article and reproduced its test metrics (Table 10) on the original data when they were exported.
 The data are not public, so this check is not part of the test suite. The parameters are not included in
-this release (they are available from the authors on request); the tests that need them are skipped
+this release; the tests that need them are skipped
 without them.
 
 **Monitoring article** (accepted), Sections 5.3 and 5.4. `validation/monitor_simulation.py` repeats the simulation
