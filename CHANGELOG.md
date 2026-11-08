@@ -2,7 +2,7 @@
 
 All notable changes are listed here. Versions follow [semantic versioning](https://semver.org).
 
-## Unreleased
+## 0.1.0 (2026-11-08) — first public release
 
 - `uccap.monitor`: sequential Bayesian operational acceptability monitoring after approval, from the
   monitoring article (accepted). `monitor_study` updates an exponentially discounted Normal–Inverse-Gamma
@@ -12,17 +12,14 @@ All notable changes are listed here. Versions follow [semantic versioning](https
   Table 14, with coloured HTML and Excel output (including every trajectory). Optional gauge correction
   (`gauge_sd`). Command `uccap monitor`; plots `monitor_figure` and `monitor_overview`;
   `validation/monitor_simulation.py` reproduces Tables 4 and 11; notebook 04 and `examples/monitor_example.py`;
-  a manual chapter. The other modules are unchanged.
+  a manual chapter.
 - `uccap.hybrid`: the trained UC-Cap parameters are not included in this release.
   `set_model_path`, the environment variable `UCCAP_MODEL` and `uccap --model PATH`
   give their location; `model_available` tells whether they are found. Without them `hybrid_risk` raises
   `ModelNotAvailable`, `batch_study` and the command line leave out the UC-Cap columns and plots with a
-  warning, and the model inputs and mechanism signals work as before.
-- Plots: the values written by `show_data=True` have as many decimals as the data, at most three; the new
+  warning, and the model inputs and mechanism signals still work.
+- Plots: the values written by `show_data=True` have as many decimals as the data, at most three; the
   `decimals` argument (command line `--decimals N`) sets the number.
-
-## 0.1.0 — first public release
-
 - `uccap.workflow`: capability study following the practical PCI workflow (outlier screening,
   Anderson–Darling normality test, AICc distribution selection among 10 default and 10 optional
   candidates, within and overall sigma, normal and percentile-based indices for bilateral, asymmetric
