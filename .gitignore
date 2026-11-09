@@ -9,6 +9,11 @@ data/private/
 *.parquet
 src/uccap/hybrid/uccap_v4_2.json
 
+# files written when the examples and notebooks are run
+examples/monitor_overview.png
+examples/M102_monitor.png
+examples/notebooks/monitor_results.html
+
 # LaTeX build files
 docs/manual_tex/*.aux
 docs/manual_tex/*.log

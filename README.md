@@ -209,8 +209,9 @@ Every numerical building block is checked against independent software: distribu
 tests, sigma estimators, percentiles and control-chart constants against R (`fitdistrplus`, `MASS`,
 `nortest`), and the indices against the NIST/SEMATECH e-Handbook. **127 of 127** comparisons agree.
 The published results of the articles are reproduced as well: the constants and case study of the
-workflow article, Tables 1 and 2 of the risk article's simulation study, and the operating
-characteristics of the monitoring article (Tables 4 and 11), all with the test suite. The UC-Cap model parameters reproduced the test metrics of their article (Table 10) when they were
+workflow article and Tables 1 and 2 of the risk article's simulation study, both with the test suite, and
+the operating characteristics of the monitoring article (Tables 4 and 11) with
+`validation/monitor_simulation.py`, of which the test suite runs a short version. The UC-Cap model parameters reproduced the test metrics of their article (Table 10) when they were
 exported, on the original data, which are not public; that check is therefore not part of the test
 suite. See [docs/validation.md](https://github.com/uccap-lab/uccap/blob/main/docs/validation.md).
 
