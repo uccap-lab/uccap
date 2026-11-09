@@ -55,7 +55,7 @@ The thresholds and decision rules in the examples and defaults (C0 = 1.33, cost 
 γA = 0.95, γR = 0.80) illustrate the methods, as in the articles. They are not general standards for every scenario; set them for your application.
 
 <p align="center">
-  <img src="docs/figures/overview_normal.png" alt="Capability study overview: histogram, probability plot, control charts and approval decision" width="100%">
+  <img src="https://raw.githubusercontent.com/uccap-lab/uccap/main/docs/figures/overview_normal.png" alt="Capability study overview: histogram, probability plot, control charts and approval decision" width="100%">
 </p>
 <p align="center"><sub>Ppk = 1.60 clears 1.33, but with 32 parts there is still a 9.6 % chance (red area) that the
 true Ppk is below 1.33. At a 5 % risk the calibrated rule asks for more evidence.</sub></p>

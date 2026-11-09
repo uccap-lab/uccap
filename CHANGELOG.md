@@ -46,8 +46,7 @@ All notable changes are listed here. Versions follow [semantic versioning](https
   and reproduction of the articles' published results (workflow case study and constants, risk
   simulation Tables 1 and 2: `validation/workflow_case_study.py`, `validation/risk_simulation.py`,
   `tests/test_paper_reproduction.py`); see `docs/validation.md`.
-- Median moving range constants d4 for windows 2 to 10, computed numerically (previously 2 to 5,
-  with slightly different values for 3 to 5).
+- Median moving range constants d4 for windows 2 to 10, computed numerically.
 - Example notebooks, one per article, in `examples/notebooks/`.
 - `outlier_k`: fence coefficient of the IQR and adjusted-boxplot outlier screens (default 1.5), also in
   `batch_study`.
@@ -71,7 +70,7 @@ All notable changes are listed here. Versions follow [semantic versioning](https
 - Asymmetric tolerances use the workflow article's starred indices by default
   (`asymmetric="paper"`); the Pearn–Chen form is optional (`asymmetric="pearn-chen"`).
 - Normality: chi-square goodness-of-fit test (`"chi2"`, `chi_square_gof`) as in the workflow article;
-  D'Agostino–Pearson K² is now `"k2"`.
+  D'Agostino–Pearson K² as `"k2"`.
 - `CapabilityStudy.prediction_interval()` and `tolerance_interval()` (normal studies), shown in the
   report; the approval report lists the estimate required at this estimate and the smallest estimate
   that passes for the sample size, with a note when the two rules differ.
@@ -80,11 +79,10 @@ All notable changes are listed here. Versions follow [semantic versioning](https
 - Command-line tool `uccap` (`python -m uccap`): batch study of a file to HTML, Excel or CSV,
   PNG figures of every dimension (`--plots`, `--show-values`) and sample-size planning (`uccap plan`);
   `uccap.cite()` and `uccap --cite` print the BibTeX entries.
-- Batch results: `sd_within_method` names the within-sigma estimator used (replaces `sigma_mode`);
+- Batch results: `sd_within_method` names the within-sigma estimator used;
   `BatchResult.subset(dimensions)` keeps the named dimensions for display and export.
 - GD&T characteristics: nominal 0 with LSL 0 is read as an upper limit only (Ppu) in `batch_study`
-  (`zero_lsl_gdt=True`, default), with a warning; such records
-  previously failed with "target must lie inside the specification limits". A real lower limit at 0
+  (`zero_lsl_gdt=True`, default), with a warning. A real lower limit at 0
   is entered with no nominal or `zero_lsl_gdt=False`.
 - UC-Cap for upper-limit-only (GD&T) dimensions: coded as in the training data, LSL = 0, nominal = 0
   and Ppk = Ppu, with Pp not computed (so the mean-shift and spread signals do not apply) and the nearest-limit distance taken to LSL = 0 or USL, whichever is closer; only a lower limit alone gets no score (`n/a (lower limit only)`).

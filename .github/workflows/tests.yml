@@ -56,7 +56,7 @@ jobs:
       - run: ruff check src tests validation examples
 
   macos:
-    # macOS runners are scarce for private repositories; run on demand only
+    # macOS: run on demand only (Actions tab, Run workflow)
     if: github.event_name == 'workflow_dispatch'
     runs-on: macos-latest
     timeout-minutes: 30
