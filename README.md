@@ -8,6 +8,8 @@
 
 <p align="center">
   <a href="https://github.com/uccap-lab/uccap/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/uccap-lab/uccap/actions/workflows/tests.yml/badge.svg"></a>
+  <a href="https://pypi.org/project/uccap/"><img alt="PyPI" src="https://img.shields.io/pypi/v/uccap?color=1D5C78"></a>
+  <a href="https://doi.org/10.5281/zenodo.24076097"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.24076097.svg"></a>
   <img alt="Python 3.9+" src="https://img.shields.io/badge/python-3.9%2B-1D5C78">
   <a href="https://doi.org/10.1007/s00170-026-17782-7"><img alt="Workflow paper" src="https://img.shields.io/badge/IJAMT-workflow-1D5C78"></a>
   <a href="https://doi.org/10.1007/s00170-026-18284-2"><img alt="Risk paper" src="https://img.shields.io/badge/IJAMT-risk-1D5C78"></a>
@@ -248,6 +250,8 @@ Please cite the article behind each module you use ([`CITATION.cff`](https://git
   year = {2026}, publisher = {Springer}, note = {Accepted}
 }
 ```
+
+The software itself is archived on Zenodo, DOI [10.5281/zenodo.24076097](https://doi.org/10.5281/zenodo.24076097) (all versions).
 
 Free preprints: [arXiv:2604.15544](https://arxiv.org/abs/2604.15544) (workflow),
 [arXiv:2603.14479](https://arxiv.org/abs/2603.14479) (risk), [arXiv:2604.13352](https://arxiv.org/abs/2604.13352) (hybrid).

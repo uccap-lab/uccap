@@ -7,6 +7,8 @@ authors:
   - family-names: Yang
     given-names: Lei
 version: 0.1.0
+date-released: 2026-11-09
+doi: "10.5281/zenodo.24076097"
 license: MIT
 repository-code: "https://github.com/uccap-lab/uccap"
 references:
