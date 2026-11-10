@@ -3,6 +3,7 @@ name: release
 # Runs when a GitHub release is published (tag v0.1.0 for version 0.1.0): builds the sdist and
 # wheel, checks the tag against the version and runs the tests on the wheel, then uploads to PyPI
 # through trusted publishing (no API token stored in the repository).
+# After the upload the same two files are attached to the GitHub release.
 on:
   release:
     types: [published]
@@ -43,3 +44,18 @@ jobs:
           name: dist
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
+
+  attach:
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Attach the wheel and sdist to the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" dist/* -R "$GITHUB_REPOSITORY"
